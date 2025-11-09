@@ -1,18 +1,28 @@
 package Models;
 
 public class Persona {
+
+
     private String nombre;
     private String apellido;
+    private int dni;
     private int telefono;
     private String email;
 
 
-    public Persona(String nombre, String apellido, int telefono, String email) {
+    /// Constructores
+
+    public Persona(String nombre, String apellido, int dni, int telefono, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
+        this.dni = dni;
         this.telefono = telefono;
         this.email = email;
     }
+
+
+
+    /// Getters Setters
 
 
     public String getNombre() {
@@ -31,6 +41,14 @@ public class Persona {
         this.apellido = apellido;
     }
 
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+
     public int getTelefono() {
         return telefono;
     }
@@ -46,5 +64,29 @@ public class Persona {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
+
+    /// Metodos
+
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", dni=" + dni +
+                ", telefono=" + telefono +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Persona persona)) return false;
+        return dni == persona.dni;
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hashCode(dni);
+    }
 }
