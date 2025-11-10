@@ -2,15 +2,15 @@ package Enums;
 
 public enum MetodoDePago {
     EFECTIVO(0),
-    TARJETA_DEBITO(10),
-    TRANSFERENCIA(5);
+    TARJETA_DEBITO(0.1),
+    TRANSFERENCIA(0.05);
 
-    private int recargo;
-    MetodoDePago (int recargo){
+    private double recargo;
+    MetodoDePago (double recargo){
         this.recargo = recargo;
     }
 
-    public int getRecargo(){
+    public double getRecargo(){
         return recargo;
     }
 }
