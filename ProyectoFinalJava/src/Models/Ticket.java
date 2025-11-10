@@ -94,11 +94,11 @@ public class Ticket {
         } return false;
     }
 
-    public boolean calculaPrecio (){
+    public void calculaPrecio (){
         double suma = 0;
         for (ItemTaller i : carrito){
             suma += i.getPrecio();
-        }
-
+        } suma += (suma * metodoDePago.getRecargo());
+        this.precioTotal = suma;
     }
 }
