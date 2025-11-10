@@ -87,4 +87,18 @@ public class Ticket {
             return carrito.add(itemTaller);
         } return false;
     }
+    /// Revisar si es con contraseña o administrador
+    public boolean eliminarCarrito (ItemTaller itemTaller){
+        if(itemTaller != null){
+            return carrito.remove(itemTaller);
+        } return false;
+    }
+
+    public boolean calculaPrecio (){
+        double suma = 0;
+        for (ItemTaller i : carrito){
+            suma += i.getPrecio();
+        }
+
+    }
 }
