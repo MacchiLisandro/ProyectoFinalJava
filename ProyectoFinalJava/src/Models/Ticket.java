@@ -1,6 +1,7 @@
 package Models;
 
 import Enums.MetodoDePago;
+import Exceptions.NoSeEncuentraEnCarritoException;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -87,17 +88,28 @@ public class Ticket {
             return carrito.add(itemTaller);
         } return false;
     }
+
     /// Revisar si es con contraseña o administrador
-    public boolean eliminarCarrito (ItemTaller itemTaller){
-        if(itemTaller != null){
-            return carrito.remove(itemTaller);
-        } return false;
+    public void eliminarCarrito (ItemTaller itemTaller) throws NoSeEncuentraEnCarritoException {
+        if(!carrito.contains(itemTaller)){
+            throw new NoSeEncuentraEnCarritoException("Ese item no se encuentra en el carrito");
+        } carrito.remove(itemTaller);
+    }
+    public void modificarCantidad (ItemTaller itemTaller, int cantidad)throws NoSeEncuentraEnCarritoException{
+        if(!carrito.contains(itemTaller)){
+            throw new NoSeEncuentraEnCarritoException("Ese item no se encuentra en el carrito");
+        }
+        for (ItemTaller i : carrito){
+            if(i.equals(itemTaller)){
+                i.setCantidad(cantidad);
+            }
+        }
     }
 
     public void calculaPrecio (){
         double suma = 0;
         for (ItemTaller i : carrito){
-            suma += i.getPrecio();
+            suma += i.getPrecio() * i.getCantidad();
         } suma += (suma * metodoDePago.getRecargo());
         this.precioTotal = suma;
     }
