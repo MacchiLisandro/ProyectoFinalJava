@@ -1,6 +1,10 @@
 package Models;
 
-public class Servicio extends ItemTaller{
+import Interfaces.IJson;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class Servicio extends ItemTaller implements IJson {
     private int tiempoEstimado;
     private String descripcion;
 
@@ -24,5 +28,19 @@ public class Servicio extends ItemTaller{
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject object=super.toJson();
+        try{
+            object.put("tiempoEstimado",this.tiempoEstimado);
+            object.put("descripcion",this.descripcion);
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return object;
     }
 }

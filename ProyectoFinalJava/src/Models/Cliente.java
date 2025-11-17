@@ -1,7 +1,12 @@
 package Models;
+import Interfaces.IJson;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
-public class Cliente {
+public class Cliente implements IJson {
 
     private double deuda;
     private ArrayList<Vehiculo> arrayVehiculo;
@@ -61,6 +66,21 @@ public class Cliente {
     }
 
 
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject object=new JSONObject();
+        try{
+        object.put("deuda",this.deuda);
+            JSONArray array=new JSONArray();
 
+        for(Vehiculo vehiculoJson:this.arrayVehiculo){
+            array.put(vehiculoJson);
+        }
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return object;
+    }
 
 }

@@ -2,10 +2,13 @@ package Models;
 
 import Enums.Marca;
 import Exceptions.StockInsuficienteException;
+import Interfaces.IJson;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
-public class Repuesto extends ItemTaller {
+public class Repuesto extends ItemTaller implements IJson {
     private int id;
     private int stock;
     private Marca marca;
@@ -73,5 +76,20 @@ public class Repuesto extends ItemTaller {
 
     public void modificarStock(int cantidad){
         this.setStock(cantidad);
+    }
+
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject object= super.toJson();
+        try{
+            object.put("id",this.id);
+            object.put("stock",this.stock);
+            object.put("marca",this.marca);
+            object.put("costo",this.costo);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
     }
 }

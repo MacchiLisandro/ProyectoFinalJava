@@ -1,8 +1,12 @@
 package Models;
 
+import Interfaces.IJson;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Objects;
 
-public abstract class ItemTaller {
+public abstract class ItemTaller  implements IJson {
     private String nombre;
     private double precio;
     private int cantidad;
@@ -46,4 +50,24 @@ public abstract class ItemTaller {
     public int hashCode() {
         return Objects.hashCode(nombre);
     }
+
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject object=new JSONObject();
+
+        try {
+
+            object.put("nombre",this.nombre);
+            object.put("precio",this.precio);
+            object.put("cantidad",this.cantidad);
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return object;
+    }
+
+
 }
