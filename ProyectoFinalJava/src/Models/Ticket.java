@@ -2,12 +2,15 @@ package Models;
 
 import Enums.MetodoDePago;
 import Exceptions.NoSeEncuentraEnCarritoException;
+import Interfaces.IJson;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Ticket {
+public class Ticket implements IJson {
     private static int contadorIds = 0;
     private int id;
     private ArrayList<ItemTaller> carrito;
@@ -27,6 +30,26 @@ public class Ticket {
         this.precioTotal = 0;
     }
 
+    public JSONObject toJson (){
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("contadorIds", this.contadorIds);
+            jsonObject.put("id", this.id);
+            JSONArray carritoJson = new JSONArray();
+            for (ItemTaller item : carrito){
+                carritoJson.put(item.toJson);
+
+            }
+            jsonObject.put("carrito");
+            jsonObject.put();
+            jsonObject.put();
+            jsonObject.put();
+            jsonObject.put();
+            jsonObject.put();
+            jsonObject.put();
+        }
+    }
     public int getId() {
         return id;
     }

@@ -1,7 +1,9 @@
 package Gestoras;
 
 import Interfaces.IJson;
+import Models.JsonUtiles;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -24,4 +26,5 @@ public class GestoraGenerica<T extends IJson> implements IJson {
         return arrayJson;
 
     }
+
 }
