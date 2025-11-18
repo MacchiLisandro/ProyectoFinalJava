@@ -84,6 +84,29 @@ public class Mecanico extends Persona implements IJson {
 
     }
 
+    /// fromJson
+
+    public static Mecanico fromJson(JSONObject object) {
+        Mecanico mecanico = new Mecanico(); // constructor vacío
+        try {
+            ///  Los atributos que tienen como herencia de Persona
+            mecanico.setNombre(object.getString("nombre"));
+            mecanico.setApellido(object.getString("apellido"));
+            mecanico.setDni(object.getInt("dni"));
+            mecanico.setTelefono(object.getInt("telefono"));
+            mecanico.setEmail(object.getString("email"));
+
+            // Campos propios de Mecanico
+            mecanico.setUsuario(object.getString("usuario"));
+            mecanico.setContrasenia(object.getString("contrasenia")); // se hash dentro del setter
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return mecanico;
+    }
+
+
 
 
 }

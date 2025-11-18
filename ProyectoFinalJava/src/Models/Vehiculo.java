@@ -18,6 +18,12 @@ public class Vehiculo implements IJson {
         this.modelo = modelo;
     }
 
+    public Vehiculo() {
+        this.patente = "";
+        this.marca = null;
+        this.modelo = "";
+    }
+
     public String getPatente() {
         return patente;
     }
@@ -69,4 +75,25 @@ public class Vehiculo implements IJson {
         }
         return object;
     }
+
+
+    /// FromJson
+
+    public static Vehiculo fromJson(JSONObject object) {
+        Vehiculo vehiculo = new Vehiculo();
+        try {
+            vehiculo.setPatente(object.getString("patente"));
+            vehiculo.setMarca(Marca.valueOf(object.getString("marca")));
+            vehiculo.setModelo(object.getString("modelo"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return vehiculo;
+    }
+
+
+
+
+
+
 }
