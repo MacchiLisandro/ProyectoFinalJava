@@ -33,6 +33,10 @@ public class Ticket implements IJson {
         this.precioTotal = 0;
     }
 
+    public static void setContadorIds(int contadorIds) {
+        Ticket.contadorIds = contadorIds;
+    }
+
     public int getId() {
         return id;
     }
@@ -114,7 +118,7 @@ public class Ticket implements IJson {
 
     public void calculaPrecio (){
         double suma = 0;
-        for (ItemTaller i : this.carrito){
+        for (ItemTaller i : carrito){
             suma += i.getPrecio() * i.getCantidad();
         } suma += (suma * metodoDePago.getRecargo());
         this.precioTotal = suma;
@@ -124,12 +128,12 @@ public class Ticket implements IJson {
     public JSONObject toJson() throws JSONException {
         JSONObject object=new JSONObject();
         try{
-            object.put("contadorIds", contadorIds);
             object.put("Id",this.id);
             JSONArray jsonArray=new JSONArray();
-            for(ItemTaller item: this.carrito){
+            for(ItemTaller item: carrito){
                 jsonArray.put(item.toJson());
             }
+            object.put("carrito", jsonArray);
             object.put("cliente",this.cliente.toJson());
             object.put("mecanico",this.mecanico.toJson());
             object.put("metodoDePago",this.metodoDePago.name());
