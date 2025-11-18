@@ -1,6 +1,10 @@
 package Models;
 
-public class Persona {
+import Interfaces.IJson;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class Persona  implements IJson {
 
 
     private String nombre;
@@ -88,5 +92,22 @@ public class Persona {
     @Override
     public int hashCode() {
         return java.util.Objects.hashCode(dni);
+    }
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject object=new JSONObject();
+
+        try{
+            object.put("nombre",this.nombre);
+            object.put("apellido",this.apellido);
+            object.put("dni",this.dni);
+            object.put("telefono",this.telefono);
+            object.put("email",this.email);
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return object;
     }
 }

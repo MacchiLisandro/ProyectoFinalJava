@@ -1,36 +1,32 @@
 package Models;
 
-public class Mecanico {
+import Interfaces.IJson;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    private boolean admin;
+public class Mecanico extends Persona implements IJson {
+
     private String usuario;
     private String contrasenia;
 
 
-        /// Constructores
-
-    public Mecanico(boolean admin, String usuario, String contrasenia) {
-        this.admin = admin;
+    public Mecanico(String nombre, String apellido, int dni, int telefono, String email, String usuario, String contrasenia) {
+        super(nombre, apellido, dni, telefono, email);
         this.usuario = usuario;
         this.contrasenia = contrasenia;
     }
 
+    /// Constructores
+
     public Mecanico() {
-        this.admin = false;
+        super("", "",0, 0, "");
         this.usuario = "";
         this.contrasenia = "";
     }
 
 
+
     /// Getters Setters
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
 
     public String getUsuario() {
         return usuario;
@@ -45,7 +41,7 @@ public class Mecanico {
     }
 
     public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+        this.contrasenia = Seguridad.hashearContrasenia(contrasenia);
     }
 
 
@@ -53,13 +49,39 @@ public class Mecanico {
 
     @Override
     public String toString() {
-        return "Mecanico{" +
-                "admin=" + admin +
+        return super.toString() +
+                "Mecanico{" +
                 ", usuario='" + usuario + '\'' +
                 ", contrasenia='" + contrasenia + '\'' +
                 '}';
     }
 
+
+    /// To json
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+
+        JSONObject object=super.toJson();
+        try{
+            object.put("usuario",this.usuario);
+            object.put("contrasenia",this.contrasenia);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
+
+    /// Metodo para validar la contraseña al inciar sesion.
+
+
+    public boolean verificarContrasenia(String contraseniaIngresada){
+
+        String hash = Seguridad.hashearContrasenia(contraseniaIngresada);
+        return contrasenia.equals(hash);
+
+    }
 
 
 

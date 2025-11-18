@@ -1,10 +1,13 @@
 package Models;
 
 import Enums.Marca;
+import Interfaces.IJson;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
-public class Vehiculo {
+public class Vehiculo implements IJson {
     private String patente;
     private Marca marca;
     private String modelo;
@@ -48,5 +51,22 @@ public class Vehiculo {
     @Override
     public int hashCode() {
         return Objects.hashCode(patente);
+    }
+
+
+
+    ///  toJson
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject object=new JSONObject();
+        try{
+            object.put("patente",this.patente);
+            object.put("marca",this.marca);
+            object.put("modelo",this.modelo);
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return object;
     }
 }
