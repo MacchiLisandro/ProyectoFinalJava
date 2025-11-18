@@ -124,40 +124,4 @@ public class Repuesto extends ItemTaller implements IJson {
         return repuesto;
     }
 
-    /*
-    @Override
-public JSONObject toJson() throws JSONException {
-    JSONObject object = super.toJson();
-    try {
-        object.put("id", this.id);
-        object.put("stock", this.stock);
-        object.put("marca", this.marca);
-        object.put("costo", this.costo);
-        object.put("tipo", "Repuesto"); // identificador de clase
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }
-    return object;
-}
-
-/// fromJson para reconstruir el objeto desde JSON
-public static Repuesto fromJson(JSONObject object) {
-    Repuesto repuesto = new Repuesto();
-    try {
-        repuesto.setNombre(object.getString("nombre"));
-        repuesto.setPrecio(object.getDouble("precio"));
-        repuesto.setCantidad(object.getInt("cantidad"));
-        repuesto.setId(object.getInt("id"));
-        repuesto.setStock(object.getInt("stock"));
-        repuesto.setMarca(Marca.valueOf(object.getString("marca")));
-        repuesto.setCosto(object.getDouble("costo"));
-        // no necesitamos setear "tipo", solo usarlo al leer
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }
-    return repuesto;
-}
-
-
-    */
 }

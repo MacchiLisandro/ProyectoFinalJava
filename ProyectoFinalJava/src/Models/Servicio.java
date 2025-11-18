@@ -68,39 +68,9 @@ public class Servicio extends ItemTaller implements IJson {
         }
         return servicio;
     }
+    
 
-
-    /*
-    @Override
-public JSONObject toJson() throws JSONException {
-    JSONObject object = super.toJson();
-    try {
-        object.put("tiempoEstimado", this.tiempoEstimado);
-        object.put("descripcion", this.descripcion);
-        object.put("tipo", "Servicio"); // identificador de clase
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }
-    return object;
-}
-
-/// fromJson para reconstruir el objeto desde JSON
-public static Servicio fromJson(JSONObject object) {
-    Servicio servicio = new Servicio();
-    try {
-        servicio.setNombre(object.getString("nombre"));
-        servicio.setPrecio(object.getDouble("precio"));
-        servicio.setCantidad(object.getInt("cantidad"));
-        servicio.setTiempoEstimado(object.getInt("tiempoEstimado"));
-        servicio.setDescripcion(object.getString("descripcion"));
-        // no necesitamos setear "tipo"
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }
-    return servicio;
-}
-
-
+/*
  ///Explicacion
 
  Cuando tenemos una clase padre abstracta (ItemTaller) y varias clases hijas (Repuesto, Servicio), no podemos instanciar directamente la clase padre. Pero en tu Ticket tenés un ArrayList<ItemTaller> que puede contener cualquier tipo de objeto hijo.
@@ -120,10 +90,6 @@ En resumen:
 No se guarda como atributo en la clase, solo se pone en el JSON.
 
 Permite manejar listas de objetos de distintas subclases de forma segura.
-
-
-
-
 
     */
 
