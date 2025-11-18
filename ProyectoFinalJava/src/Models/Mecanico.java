@@ -1,5 +1,7 @@
 package Models;
 
+import Interfaces.IJson;
+
 public class Mecanico {
 
     private boolean admin;

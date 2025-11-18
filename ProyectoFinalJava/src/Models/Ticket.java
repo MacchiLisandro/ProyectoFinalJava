@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Ticket {
+public class Ticket IJson{
     private static int contadorIds = 0;
     private int id;
     private ArrayList<ItemTaller> carrito;
