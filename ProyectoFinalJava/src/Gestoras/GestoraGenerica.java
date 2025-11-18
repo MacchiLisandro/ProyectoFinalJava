@@ -14,7 +14,7 @@ public class GestoraGenerica<T extends IJson>{
     public HashSet<T>contenedor=new HashSet<>();
 
 
-    public void toJsonArray () throws JSONException {
+    public JSONArray toJsonArray () throws JSONException {
         JSONArray jsonArray = new JSONArray();
         try{
             for (T t: contenedor){
@@ -23,7 +23,7 @@ public class GestoraGenerica<T extends IJson>{
         } catch (JSONException e){
             e.printStackTrace();
         }
-        JsonUtiles.grabarUnJson(jsonArray, "algo.json");
+        return jsonArray;
     }
 
     public void agregar(T t)throws DuplicadoException{
