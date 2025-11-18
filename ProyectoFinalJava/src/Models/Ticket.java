@@ -227,7 +227,7 @@ Al leer el JSON, usamos ese "tipo" para saber si creamos un Repuesto o un Servic
 
 Esto mantiene el carrito heterogéneo y permite deserializarlo sin perder la información del tipo real.
 
-
+asd
 
 
 
