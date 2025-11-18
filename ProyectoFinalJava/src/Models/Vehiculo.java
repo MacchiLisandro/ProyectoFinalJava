@@ -53,6 +53,9 @@ public class Vehiculo implements IJson {
         return Objects.hashCode(patente);
     }
 
+
+
+    ///  toJson
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject object=new JSONObject();

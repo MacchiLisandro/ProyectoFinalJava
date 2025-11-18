@@ -84,5 +84,5 @@ public class Mecanico extends Persona implements IJson {
     }
 
 
-    
+
 }
