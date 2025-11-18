@@ -6,6 +6,7 @@ import Interfaces.IJson;
 import Models.JsonUtiles;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashSet;
 
@@ -24,6 +25,12 @@ public class GestoraGenerica<T extends IJson>{
             e.printStackTrace();
         }
         return jsonArray;
+    }
+
+    public static JSONObject fromJsonArray (JSONArray jsonArray)throws  JSONException{
+        for (int i = 0; i<jsonArray.length(); i++){
+
+        }
     }
 
     public void agregar(T t)throws DuplicadoException{

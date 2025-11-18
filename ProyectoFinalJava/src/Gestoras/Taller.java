@@ -3,6 +3,7 @@ package Gestoras;
 import Models.*;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONTokener;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -50,9 +51,13 @@ public class Taller {
     public void guardarTodo(){
         try{
             JSONArray arrayClientes = gestorClientes.toJsonArray();
+            JsonUtiles.grabarUnJson(arrayClientes,"clientes.json");
             JSONArray arrayMecanicos = gestorMecanicos.toJsonArray();
+            JsonUtiles.grabarUnJson(arrayMecanicos,"mecanicos.json");
             JSONArray arrayTicket = ticketToJsonArray();
+            JsonUtiles.grabarUnJson(arrayTicket,"tickets.json");
             JSONArray arrayItemTaller = gestorItemTaller.toJsonArray();
+            JsonUtiles.grabarUnJson(arrayItemTaller, "itemTaller.json");
         } catch (JSONException e){
             e.printStackTrace();
         }
@@ -61,6 +66,17 @@ public class Taller {
 
     public void cargarTodo(){
         int nticket = 0;
+
+        try{
+            JSONTokener tokener = JsonUtiles.leerUnJson("clientes.json");
+            JSONArray arrayClientes = new JSONArray(tokener);
+            gestorClientes
+            for (int i = 0; i<arrayClientes.length(); i++){
+                this.gestorClientes.agregar(Cliente.fromJson(arrayClientes(i)));
+            }
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
         Ticket.setContadorIds(nticket);
     }
     private JSONArray ticketToJsonArray () throws JSONException {

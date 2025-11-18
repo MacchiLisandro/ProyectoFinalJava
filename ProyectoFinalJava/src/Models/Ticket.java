@@ -195,16 +195,6 @@ public class Ticket implements IJson {
         return ticket;
     }
 
-    /*
-Explicacion
-Cada ItemTaller se guarda con su tipo para poder reconstruir correctamente la clase hija.
 
-No necesitamos un atributo tipo en la clase, solo se agrega en el JSON.
-
-Al leer el JSON, usamos ese "tipo" para saber si creamos un Repuesto o un Servicio.
-
-Esto mantiene el carrito heterogéneo y permite deserializarlo sin perder la información del tipo real.
-
-*/
 
 }
