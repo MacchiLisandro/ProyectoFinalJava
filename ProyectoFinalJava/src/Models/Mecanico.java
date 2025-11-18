@@ -74,6 +74,7 @@ public class Mecanico extends Persona implements IJson {
     }
 
     /// Metodo para validar la contraseña al inciar sesion.
+    /// Metodo Contraseña
 
 
     public boolean verificarContrasenia(String contraseniaIngresada){
