@@ -27,4 +27,16 @@ public class GestoraGenerica<T extends IJson> implements IJson {
 
     }
 
+    public void toJsonArray () throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+        try{
+            for (T t: ejercito){
+                jsonArray.put(t.toJson());
+            }
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+        JsonUtiles.grabarUnJson(jsonArray, "ejercito.json");
+    }
+
 }
