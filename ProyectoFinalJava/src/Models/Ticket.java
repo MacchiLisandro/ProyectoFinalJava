@@ -2,6 +2,9 @@ package Models;
 
 import Enums.MetodoDePago;
 import Exceptions.NoSeEncuentraEnCarritoException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -16,6 +19,27 @@ public class Ticket {
     private MetodoDePago metodoDePago;
     private LocalDate fecha;
     private double precioTotal;
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject object=new JSONObject();
+        try{
+            object.put("contadorIds",this.contadorIds);
+            object.put("Id",this.id);
+            JSONArray jsonArray=new JSONArray();
+            for(ItemTaller item: carrito){
+                jsonArray.put(item.toJson());
+            }
+            object.put("cliente",this.cliente.toJson());
+            object.put("Mecanico",this.mecanico.toJson);
+            object.put("metodoDePago",this.metodoDePago.name());
+            object.put("fecha",this.fecha.toString());
+            object.put("precioTotal",this.precioTotal);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return object;
+    }
 
     public Ticket(Cliente cliente, Mecanico mecanico, MetodoDePago metodoDePago) {
         this.id = ++ contadorIds;
