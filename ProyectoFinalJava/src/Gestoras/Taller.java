@@ -1,5 +1,7 @@
 package Gestoras;
 
+import Exceptions.DuplicadoException;
+import Exceptions.NoSeEncuentraEnRegistroException;
 import Models.Cliente;
 import Models.ItemTaller;
 import Models.Mecanico;
@@ -18,5 +20,19 @@ public class Taller {
         gestorItemTaller = new GestoraGenerica<>();
     }
 
+    public void agregarClientes (Cliente cliente){
+        try{
+            gestorClientes.agregar(cliente);
+        } catch (DuplicadoException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
+    public void eliminarClientes (Cliente cliente)throws NoSeEncuentraEnRegistroException{
+        try{
+            gestorClientes.eliminar(cliente);
+        } catch (NoSeEncuentraEnRegistroException e) {
+            throw new NoSeEncuentraEnRegistroException("El C");
+        }
+    }
 }

@@ -28,13 +28,13 @@ public class GestoraGenerica<T extends IJson>{
 
     public void agregar(T t)throws DuplicadoException{
         if (!contenedor.add(t)){
-            throw new DuplicadoException("Ya se encuentra en el Registro");
+            throw new DuplicadoException("");
         }
     }
 
     public void eliminar(T t)throws NoSeEncuentraEnRegistroException {
         if(!contenedor.remove(t)){
-            throw new NoSeEncuentraEnRegistroException("No se encuentra el elemento");
+            throw new NoSeEncuentraEnRegistroException("");
         }
     }
 
