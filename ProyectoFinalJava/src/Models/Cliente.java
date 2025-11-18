@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Cliente implements IJson {
+public class Cliente extends Persona implements IJson {
 
     private double deuda;
     private ArrayList<Vehiculo> arrayVehiculo;
@@ -14,12 +14,23 @@ public class Cliente implements IJson {
 
     /// Constructor
 
-    public Cliente(double deuda) {
+    public Cliente(String nombre, String apellido, int dni, int telefono, String email, double deuda, ArrayList<Vehiculo> arrayVehiculo) {
+        super(nombre, apellido, dni, telefono, email);
         this.deuda = deuda;
-        this.arrayVehiculo = new ArrayList<>();
+        this.arrayVehiculo = arrayVehiculo;
     }
 
+    public Cliente() {
+        super("", "", 0, 0, "");
+        this.deuda = deuda;
+        this.arrayVehiculo = arrayVehiculo;
+    }
+
+
+
+
     /// Getters Setters
+
 
     public double getDeuda() {
         return deuda;
@@ -68,7 +79,7 @@ public class Cliente implements IJson {
 
     @Override
     public JSONObject toJson() throws JSONException {
-        JSONObject object=new JSONObject();
+        JSONObject object= super.toJson();
         try{
         object.put("deuda",this.deuda);
             JSONArray array=new JSONArray();
