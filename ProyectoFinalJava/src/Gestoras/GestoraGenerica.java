@@ -26,16 +26,4 @@ public class GestoraGenerica<T extends IJson> {
         JsonUtiles.grabarUnJson(jsonArray, "algo.json");
     }
 
-    public void toJsonArray () throws JSONException {
-        JSONArray jsonArray = new JSONArray();
-        try{
-            for (T t: contenedor){
-                jsonArray.put(t.toJson());
-            }
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-        JsonUtiles.grabarUnJson(jsonArray, "algo.json");
-    }
-
 }
