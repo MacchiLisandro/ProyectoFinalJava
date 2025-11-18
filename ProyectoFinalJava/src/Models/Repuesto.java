@@ -21,6 +21,13 @@ public class Repuesto extends ItemTaller implements IJson {
         this.marca = marca;
         this.costo = costo;
     }
+    public Repuesto() {
+        super("", 0.0);
+        this.id = 0;
+        this.stock = 0;
+        this.marca = null;
+        this.costo = 0.0;
+    }
 
     public int getId() {
         return id;
@@ -83,8 +90,6 @@ public class Repuesto extends ItemTaller implements IJson {
     /// To json
 
 
-
-
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject object= super.toJson();
@@ -98,4 +103,62 @@ public class Repuesto extends ItemTaller implements IJson {
         }
         return object;
     }
+
+    /// FromJson
+    public static Repuesto fromJson(JSONObject object) {
+        Repuesto repuesto = new Repuesto(); // constructor vacío
+        try {
+            // Atributos heredados de ItemTaller
+            repuesto.setNombre(object.getString("nombre"));
+            repuesto.setPrecio(object.getDouble("precio"));
+            repuesto.setCantidad(object.getInt("cantidad"));
+
+            // Atributos propios de Repuesto
+            repuesto.setId(object.getInt("id"));
+            repuesto.setStock(object.getInt("stock"));
+            repuesto.setMarca(Marca.valueOf(object.getString("marca"))); // enum
+            repuesto.setCosto(object.getDouble("costo"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return repuesto;
+    }
+
+    /*
+    @Override
+public JSONObject toJson() throws JSONException {
+    JSONObject object = super.toJson();
+    try {
+        object.put("id", this.id);
+        object.put("stock", this.stock);
+        object.put("marca", this.marca);
+        object.put("costo", this.costo);
+        object.put("tipo", "Repuesto"); // identificador de clase
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+    return object;
+}
+
+/// fromJson para reconstruir el objeto desde JSON
+public static Repuesto fromJson(JSONObject object) {
+    Repuesto repuesto = new Repuesto();
+    try {
+        repuesto.setNombre(object.getString("nombre"));
+        repuesto.setPrecio(object.getDouble("precio"));
+        repuesto.setCantidad(object.getInt("cantidad"));
+        repuesto.setId(object.getInt("id"));
+        repuesto.setStock(object.getInt("stock"));
+        repuesto.setMarca(Marca.valueOf(object.getString("marca")));
+        repuesto.setCosto(object.getDouble("costo"));
+        // no necesitamos setear "tipo", solo usarlo al leer
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+    return repuesto;
+}
+
+
+    */
 }

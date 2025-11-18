@@ -85,13 +85,45 @@ public class Cliente extends Persona implements IJson {
             JSONArray array=new JSONArray();
 
         for(Vehiculo vehiculoJson:this.arrayVehiculo){
-            array.put(vehiculoJson);
+            array.put(vehiculoJson.toJson());
         }
+        object.put("vehiculos",array);
 
         }catch (JSONException e){
             e.printStackTrace();
         }
         return object;
     }
+
+
+    /// fromJson
+    public static Cliente fromJson(JSONObject object) {
+        Cliente cliente = new Cliente(); // constructor vacío
+        try {
+            /// Aca se tienen que volver a pasar los atributos de la clase padre.
+            cliente.setNombre(object.getString("nombre"));
+            cliente.setApellido(object.getString("apellido"));
+            cliente.setDni(object.getInt("dni"));
+            cliente.setTelefono(object.getInt("telefono"));
+            cliente.setEmail(object.getString("email"));
+
+            /// Los atributos de cliente van aca
+            cliente.setDeuda(object.getDouble("deuda"));
+
+            /// Serializar los objetos del array
+            cliente.arrayVehiculo = new ArrayList<>();
+            JSONArray arrayJson = object.getJSONArray("vehiculos");
+            for (int i = 0; i < arrayJson.length(); i++) {
+                JSONObject vehiculoJson = arrayJson.getJSONObject(i);
+                Vehiculo vehiculoA = Vehiculo.fromJson(vehiculoJson);
+                cliente.getArrayVehiculo().add(vehiculoA);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return cliente;
+    }
+
 
 }
