@@ -21,6 +21,8 @@ public class Ticket implements IJson {
     private LocalDate fecha;
     private double precioTotal;
 
+
+
     public Ticket(Cliente cliente, Mecanico mecanico, MetodoDePago metodoDePago) {
         this.id = ++ contadorIds;
         this.cliente = cliente;
@@ -29,6 +31,10 @@ public class Ticket implements IJson {
         this.carrito = new ArrayList<>();
         this.fecha = LocalDate.now();
         this.precioTotal = 0;
+    }
+
+    public static void setContadorIds(int contadorIds) {
+        Ticket.contadorIds = contadorIds;
     }
 
     public int getId() {
@@ -117,17 +123,17 @@ public class Ticket implements IJson {
         } suma += (suma * metodoDePago.getRecargo());
         this.precioTotal = suma;
     }
-/// ToJson
+
     @Override
     public JSONObject toJson() throws JSONException {
         JSONObject object=new JSONObject();
         try{
-            object.put("contadorIds",this.contadorIds);
             object.put("Id",this.id);
             JSONArray jsonArray=new JSONArray();
             for(ItemTaller item: carrito){
                 jsonArray.put(item.toJson());
             }
+            object.put("carrito", jsonArray);
             object.put("cliente",this.cliente.toJson());
             object.put("mecanico",this.mecanico.toJson());
             object.put("metodoDePago",this.metodoDePago.name());
@@ -138,8 +144,4 @@ public class Ticket implements IJson {
         }
         return object;
     }
-
-
-
-
 }
