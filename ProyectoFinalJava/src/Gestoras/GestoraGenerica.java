@@ -11,7 +11,7 @@ import java.util.HashSet;
 
 public class GestoraGenerica<T extends IJson>{
 
-    HashSet<T>contenedor=new HashSet<>();
+    public HashSet<T>contenedor=new HashSet<>();
 
 
     public void toJsonArray () throws JSONException {
