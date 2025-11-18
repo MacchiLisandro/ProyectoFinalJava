@@ -59,6 +59,10 @@ public class Taller {
 
     }
 
+    public void cargarTodo(){
+        int nticket = 0;
+        Ticket.setContadorIds(nticket);
+    }
     private JSONArray ticketToJsonArray () throws JSONException {
         JSONArray jsonArray = new JSONArray();
         try{
