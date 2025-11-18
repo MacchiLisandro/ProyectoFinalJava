@@ -89,15 +89,16 @@ public class Repuesto extends ItemTaller implements IJson {
 
     /// To json
 
-
+    /// Con el identificador de tipo es para en ticket hacer una diferencia entre servicio y repuesto
     @Override
     public JSONObject toJson() throws JSONException {
-        JSONObject object= super.toJson();
-        try{
-            object.put("id",this.id);
-            object.put("stock",this.stock);
-            object.put("marca",this.marca);
-            object.put("costo",this.costo);
+        JSONObject object = super.toJson();
+        try {
+            object.put("id", this.id);
+            object.put("stock", this.stock);
+            object.put("marca", this.marca);
+            object.put("costo", this.costo);
+            object.put("tipo", "Repuesto");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -105,18 +106,16 @@ public class Repuesto extends ItemTaller implements IJson {
     }
 
     /// FromJson
+    /// fromJson para reconstruir el objeto desde JSON
     public static Repuesto fromJson(JSONObject object) {
-        Repuesto repuesto = new Repuesto(); // constructor vacío
+        Repuesto repuesto = new Repuesto();
         try {
-            // Atributos heredados de ItemTaller
             repuesto.setNombre(object.getString("nombre"));
             repuesto.setPrecio(object.getDouble("precio"));
             repuesto.setCantidad(object.getInt("cantidad"));
-
-            // Atributos propios de Repuesto
             repuesto.setId(object.getInt("id"));
             repuesto.setStock(object.getInt("stock"));
-            repuesto.setMarca(Marca.valueOf(object.getString("marca"))); // enum
+            repuesto.setMarca(Marca.valueOf(object.getString("marca")));
             repuesto.setCosto(object.getDouble("costo"));
 
         } catch (JSONException e) {

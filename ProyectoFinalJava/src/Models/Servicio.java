@@ -37,15 +37,15 @@ public class Servicio extends ItemTaller implements IJson {
 
 
     /// To json
-
+/// Con el identificador de tipo es para en ticket hacer una diferencia entre servicio y repuesto
     @Override
     public JSONObject toJson() throws JSONException {
-        JSONObject object=super.toJson();
-        try{
-            object.put("tiempoEstimado",this.tiempoEstimado);
-            object.put("descripcion",this.descripcion);
-
-        }catch (JSONException e){
+        JSONObject object = super.toJson();
+        try {
+            object.put("tiempoEstimado", this.tiempoEstimado);
+            object.put("descripcion", this.descripcion);
+            object.put("tipo", "Servicio");
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return object;
@@ -53,15 +53,13 @@ public class Servicio extends ItemTaller implements IJson {
 
 
     /// FromJson
+    /// fromJson para reconstruir el objeto desde JSON
     public static Servicio fromJson(JSONObject object) {
-        Servicio servicio = new Servicio(); // constructor vacío
+        Servicio servicio = new Servicio();
         try {
-            // Atributos heredados de ItemTaller
             servicio.setNombre(object.getString("nombre"));
             servicio.setPrecio(object.getDouble("precio"));
             servicio.setCantidad(object.getInt("cantidad"));
-
-            // Atributos propios de Servicio
             servicio.setTiempoEstimado(object.getInt("tiempoEstimado"));
             servicio.setDescripcion(object.getString("descripcion"));
 
