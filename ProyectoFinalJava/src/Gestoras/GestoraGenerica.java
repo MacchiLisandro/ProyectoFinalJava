@@ -1,12 +1,12 @@
 package Gestoras;
 
+import Exceptions.DuplicadoException;
+import Exceptions.NoSeEncuentraEnRegistroException;
 import Interfaces.IJson;
 import Models.JsonUtiles;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class GestoraGenerica<T extends IJson>{
@@ -25,4 +25,25 @@ public class GestoraGenerica<T extends IJson>{
         }
         JsonUtiles.grabarUnJson(jsonArray, "algo.json");
     }
+
+    public void agregar(T t)throws DuplicadoException{
+        if (!contenedor.add(t)){
+            throw new DuplicadoException("Ya se encuentra en el Registro");
+        }
+    }
+
+    public void eliminar(T t)throws NoSeEncuentraEnRegistroException {
+        if(!contenedor.remove(t)){
+            throw new NoSeEncuentraEnRegistroException("No se encuentra el elemento");
+        }
+    }
+
+    public String listar (){
+        StringBuilder sb = new StringBuilder();
+        for (T t: contenedor){
+            sb.append(t.toString());
+        }
+        return sb.toString();
+    }
 }
+
