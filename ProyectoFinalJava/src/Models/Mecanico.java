@@ -57,6 +57,8 @@ public class Mecanico extends Persona implements IJson {
     }
 
 
+    /// To json
+
     @Override
     public JSONObject toJson() throws JSONException {
 
@@ -70,4 +72,17 @@ public class Mecanico extends Persona implements IJson {
         }
         return object;
     }
+
+    /// Metodo para validar la contraseña al inciar sesion.
+
+
+    public boolean verificarContrasenia(String contraseniaIngresada){
+
+        String hash = Seguridad.hashearContrasenia(contraseniaIngresada);
+        return contrasenia.equals(hash);
+
+    }
+
+
+    
 }
