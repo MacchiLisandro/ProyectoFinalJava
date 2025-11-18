@@ -2,6 +2,7 @@ package Models;
 
 import Enums.MetodoDePago;
 import Exceptions.NoSeEncuentraEnCarritoException;
+import Interfaces.IJson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,7 +11,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Ticket IJson{
+public class Ticket implements IJson {
     private static int contadorIds = 0;
     private int id;
     private ArrayList<ItemTaller> carrito;
@@ -20,26 +21,7 @@ public class Ticket IJson{
     private LocalDate fecha;
     private double precioTotal;
 
-    @Override
-    public JSONObject toJson() throws JSONException {
-        JSONObject object=new JSONObject();
-        try{
-            object.put("contadorIds",this.contadorIds);
-            object.put("Id",this.id);
-            JSONArray jsonArray=new JSONArray();
-            for(ItemTaller item: carrito){
-                jsonArray.put(item.toJson());
-            }
-            object.put("cliente",this.cliente.toJson());
-            object.put("Mecanico",this.mecanico.toJson);
-            object.put("metodoDePago",this.metodoDePago.name());
-            object.put("fecha",this.fecha.toString());
-            object.put("precioTotal",this.precioTotal);
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
-        return object;
-    }
+
 
     public Ticket(Cliente cliente, Mecanico mecanico, MetodoDePago metodoDePago) {
         this.id = ++ contadorIds;
@@ -49,6 +31,10 @@ public class Ticket IJson{
         this.carrito = new ArrayList<>();
         this.fecha = LocalDate.now();
         this.precioTotal = 0;
+    }
+
+    public static void setContadorIds(int contadorIds) {
+        Ticket.contadorIds = contadorIds;
     }
 
     public int getId() {
@@ -136,5 +122,26 @@ public class Ticket IJson{
             suma += i.getPrecio() * i.getCantidad();
         } suma += (suma * metodoDePago.getRecargo());
         this.precioTotal = suma;
+    }
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        JSONObject object=new JSONObject();
+        try{
+            object.put("Id",this.id);
+            JSONArray jsonArray=new JSONArray();
+            for(ItemTaller item: carrito){
+                jsonArray.put(item.toJson());
+            }
+            object.put("carrito", jsonArray);
+            object.put("cliente",this.cliente.toJson());
+            object.put("mecanico",this.mecanico.toJson());
+            object.put("metodoDePago",this.metodoDePago.name());
+            object.put("fecha",this.fecha.toString());
+            object.put("precioTotal",this.precioTotal);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return object;
     }
 }
