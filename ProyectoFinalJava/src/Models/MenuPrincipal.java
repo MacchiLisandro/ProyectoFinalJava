@@ -201,7 +201,7 @@ public class MenuPrincipal {
 
     private void mostrarClientes() {
         System.out.println("\n--- LISTADO DE CLIENTES ---");
-            System.out.println(taller.mostrarClientes());
+        System.out.println(taller.mostrarClientes());
 
     }
 
@@ -217,6 +217,3 @@ public class MenuPrincipal {
         System.out.println("Ganancia del período: $" + total);
     }
 }
-
-
-
