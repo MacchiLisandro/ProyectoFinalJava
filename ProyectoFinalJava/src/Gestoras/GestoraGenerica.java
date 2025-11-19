@@ -27,15 +27,10 @@ public class GestoraGenerica<T extends IJson>{
         return jsonArray;
     }
 
-    public static JSONObject fromJsonArray (JSONArray jsonArray)throws  JSONException{
-        for (int i = 0; i<jsonArray.length(); i++){
-
-        }
-    }
 
     public void agregar(T t)throws DuplicadoException{
         if (!contenedor.add(t)){
-            throw new DuplicadoException("");
+            throw new DuplicadoException("El elemento se encuentra en la coleccion");
         }
     }
 
@@ -52,5 +47,6 @@ public class GestoraGenerica<T extends IJson>{
         }
         return sb.toString();
     }
+
 }
 
