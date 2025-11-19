@@ -27,6 +27,15 @@ public class Taller {
         gestorTickets = new LinkedHashSet();
         gestorItemTaller = new GestoraGenerica<>();
     }
+
+
+    /// getter
+    public GestoraGenerica<Cliente> getGestorClientes() {
+        return gestorClientes;
+    }
+
+
+
     /// Metodo para actualizar el contador. pendiente---
      /*public void actualizarContadorId() {
         int max = 0;
@@ -40,6 +49,11 @@ public class Taller {
         Ticket.setContadorIds(max + 1);
     }
 */
+
+
+
+
+
     /// Metodos de funcionamiento-----------------------------------------------------------------------------------------
 
     /// Metodo para ingresar un cliente
@@ -59,6 +73,11 @@ public class Taller {
             }
         } throw new NoSeEncuentraEnRegistroException("El cliente no se encuentra en la lista");
     }
+
+
+    public String mostrarClientes (){
+        return gestorClientes.listar();
+        }
 
     ///
 

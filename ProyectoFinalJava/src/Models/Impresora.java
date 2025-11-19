@@ -159,7 +159,7 @@ public class Impresora {
 
             Paragraph ley = new Paragraph(
                     "Régimen de Transparencia Fiscal\n" +
-                            "al Consumidor (Ley 27.743)",
+                            "al Consumidor (Ley 27.743)\n\n",
                     new Font(Font.FontFamily.HELVETICA, 10, Font.UNDERLINE, BaseColor.GRAY)
             );
             ley.setAlignment(Element.ALIGN_CENTER);
