@@ -82,16 +82,12 @@ public abstract class Persona  implements IJson {
 
     @Override
     public String toString() {
-<<<<<<< Updated upstream
+
         return "[" + dni + "] "
                 + nombre + " " + apellido
                 + " | Tel: " + telefono
                 + " | Email: " + email;
-=======
-        return "[" + dni + "] " + nombre + " " + apellido +
-                " | Tel: " + telefono +
-                " | Email: " + email;
->>>>>>> Stashed changes
+
     }
 
     @Override
