@@ -24,7 +24,7 @@ public class Ticket implements IJson {
 
 
     public Ticket(Cliente cliente, Mecanico mecanico, MetodoDePago metodoDePago) {
-        this.id = ++ contadorIds;
+        this.id = contadorIds ++;
         this.cliente = cliente;
         this.mecanico = mecanico;
         this.metodoDePago = metodoDePago;
@@ -112,7 +112,6 @@ public class Ticket implements IJson {
         }
         for (ItemTaller i : carrito){
             if(i.equals(itemTaller)){
-                i.setCantidad(cantidad);
             }
         }
     }

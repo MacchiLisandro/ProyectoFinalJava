@@ -55,7 +55,7 @@ public class MenuPrincipal {
 
                 case 2:
                     System.out.print("DNI: ");
-                    int dni = sc.nextInt();
+                    long dni = sc.nextLong();
                     sc.nextLine();
 
                     if(taller.existeMecanicoDni(dni)){
@@ -102,7 +102,7 @@ public class MenuPrincipal {
 
     ///  REGISTRAR MECANICO /////////////////////////////////////////////////////////////////////////////
 
-    private void registrarse(int dni) {
+    private void registrarse(long dni) {
         System.out.println("\n--- REGISTRARSE ---");
 
         System.out.print("Nombre: ");
@@ -112,7 +112,7 @@ public class MenuPrincipal {
         String apellido = sc.nextLine();
 
         System.out.print("Teléfono: ");
-        int telefono = sc.nextInt();
+        long telefono = sc.nextLong();
         sc.nextLine();
 
         System.out.print("Email: ");
@@ -249,7 +249,7 @@ public class MenuPrincipal {
     private void crearTicket() {
         try {
             System.out.print("DNI del cliente: ");
-            int dni = sc.nextInt();
+            long dni = sc.nextInt();
             sc.nextLine();
 
             Cliente cliente = taller.buscarCliente(dni);
@@ -294,10 +294,10 @@ public class MenuPrincipal {
      * pide datos al usuario para cargar un cliente nuevo
      * @return
      */
-    private Cliente cargarClienteNuevo(int dni) { //no vuelve a pedir dni, usa el del ticket si no existe
+    private Cliente cargarClienteNuevo(long dni) { //no vuelve a pedir dni, usa el del ticket si no existe
         String nombre;
         String apellido;
-        int telefono;
+        long telefono;
         String email;
 
         System.out.println("Nombre: ");
@@ -307,7 +307,7 @@ public class MenuPrincipal {
         apellido = sc.nextLine();
 
         System.out.println("Telefono: ");
-        telefono = sc.nextInt();
+        telefono = sc.nextLong();
 
         sc.nextLine(); //para limpiar buffer
 

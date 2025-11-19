@@ -9,14 +9,14 @@ public abstract class Persona  implements IJson {
 
     private String nombre;
     private String apellido;
-    private int dni;
-    private int telefono;
+    private long  dni;
+    private long telefono;
     private String email;
 
 
     /// Constructores
 
-    public Persona(String nombre, String apellido, int dni, int telefono, String email) {
+    public Persona(String nombre, String apellido, long dni, long telefono, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -53,19 +53,19 @@ public abstract class Persona  implements IJson {
         this.apellido = apellido;
     }
 
-    public int getDni() {
+    public long getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(long dni) {
         this.dni = dni;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 

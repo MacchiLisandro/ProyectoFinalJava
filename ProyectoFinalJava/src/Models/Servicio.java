@@ -59,7 +59,6 @@ public class Servicio extends ItemTaller implements IJson {
         try {
             servicio.setNombre(object.getString("nombre"));
             servicio.setPrecio(object.getDouble("precio"));
-            servicio.setCantidad(object.getInt("cantidad"));
             servicio.setTiempoEstimado(object.getInt("tiempoEstimado"));
             servicio.setDescripcion(object.getString("descripcion"));
 

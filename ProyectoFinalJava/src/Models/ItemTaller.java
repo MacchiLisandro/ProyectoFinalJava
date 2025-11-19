@@ -9,19 +9,10 @@ import java.util.Objects;
 public abstract class ItemTaller  implements IJson {
     private String nombre;
     private double precio;
-    private int cantidad;
 
     public ItemTaller(String nombre, double precio) {
         this.nombre = nombre;
         this.precio = precio;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
     }
 
     public String getNombre() {
@@ -60,7 +51,6 @@ public abstract class ItemTaller  implements IJson {
 
             object.put("nombre",this.nombre);
             object.put("precio",this.precio);
-            object.put("cantidad",this.cantidad);
 
         }catch (JSONException e){
             e.printStackTrace();

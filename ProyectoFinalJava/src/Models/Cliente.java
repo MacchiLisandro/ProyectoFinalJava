@@ -14,7 +14,7 @@ public class Cliente extends Persona implements IJson {
 
     /// Constructor
 
-    public Cliente(String nombre, String apellido, int dni, int telefono, String email) {
+    public Cliente(String nombre, String apellido, long dni, long telefono, String email) {
         super(nombre, apellido, dni, telefono, email);
         this.deuda = 0;
         this.arrayVehiculo = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Cliente extends Persona implements IJson {
 
     public Cliente() {
         super("", "", 0, 0, "");
-        this.deuda = deuda;
+        this.deuda = 0;
         this.arrayVehiculo = new ArrayList<>();
     }
 
@@ -103,8 +103,8 @@ public class Cliente extends Persona implements IJson {
             /// Aca se tienen que volver a pasar los atributos de la clase padre.
             cliente.setNombre(object.getString("nombre"));
             cliente.setApellido(object.getString("apellido"));
-            cliente.setDni(object.getInt("dni"));
-            cliente.setTelefono(object.getInt("telefono"));
+            cliente.setDni(object.getLong("dni"));
+            cliente.setTelefono(object.getLong("telefono"));
             cliente.setEmail(object.getString("email"));
 
             /// Los atributos de cliente van aca

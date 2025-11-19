@@ -59,18 +59,18 @@ public class Taller {
     /// Metodos de funcionamiento-----------------------------------------------------------------------------------------
 
     /// Metodo para ingresar un cliente
-    public Cliente agregarCliente(String nombre, String apellido, int dni, int telefono, String email){
+    public Cliente agregarCliente(String nombre, String apellido, long dni, long telefono, String email){
         Cliente c = new Cliente(nombre, apellido, dni, telefono, email);
         gestorClientes.agregar(c);
         return c;
     }
 
-    public void eliminarCliente(int dni)throws NoSeEncuentraEnRegistroException{
+    public void eliminarCliente(long dni)throws NoSeEncuentraEnRegistroException{
         Cliente cliente = buscarCliente(dni);
         gestorClientes.eliminar(cliente);
     }
 
-    public Cliente buscarCliente (int dni){
+    public Cliente buscarCliente (long dni){
         for (Cliente c: gestorClientes.contenedor) {
             if (c.getDni() == dni) {
                 return c;
@@ -112,7 +112,7 @@ public class Taller {
         } return null;
     }
 
-    public boolean existeMecanicoDni (int dni){
+    public boolean existeMecanicoDni (long dni){
         for (Mecanico m: gestorMecanicos.contenedor){
             if(m.getDni()==dni){
                 return true;
@@ -130,7 +130,7 @@ public class Taller {
         } throw new UsuarioNoEncontradoException("El usuario o la contraseña no son correctos");
     }
 
-    public void registrarse (String nombre, String apellido, int dni, int telefono, String email, String usuario, String contrasenia) throws UsuarioYaRegistradoException, DuplicadoException {
+    public void registrarse (String nombre, String apellido, long dni, long telefono, String email, String usuario, String contrasenia) throws UsuarioYaRegistradoException, DuplicadoException {
         Mecanico m = buscarMecanico(usuario);
         if(m==null){
             Mecanico mecanico = new Mecanico(nombre, apellido, dni, telefono, email, usuario, contrasenia);
