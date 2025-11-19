@@ -95,8 +95,8 @@ public class Mecanico extends Persona implements IJson {
             ///  Los atributos que tienen como herencia de Persona
             mecanico.setNombre(object.getString("nombre"));
             mecanico.setApellido(object.getString("apellido"));
-            mecanico.setDni(object.getInt("dni"));
-            mecanico.setTelefono(object.getInt("telefono"));
+            mecanico.setDni(object.getLong("dni"));
+            mecanico.setTelefono(object.getLong("telefono"));
             mecanico.setEmail(object.getString("email"));
 
             // Campos propios de Mecanico

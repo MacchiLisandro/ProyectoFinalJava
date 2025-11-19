@@ -112,7 +112,6 @@ public class Ticket implements IJson {
         }
         for (ItemTaller i : carrito){
             if(i.equals(itemTaller)){
-                i.setCantidad(cantidad);
             }
         }
     }
@@ -120,7 +119,7 @@ public class Ticket implements IJson {
     public void calculaPrecio (){
         double suma = 0;
         for (ItemTaller i : carrito){
-            suma += i.getPrecio() * i.getCantidad();
+            suma += i.getPrecio();
         } suma += (suma * metodoDePago.getRecargo());
         this.precioTotal = suma;
     }

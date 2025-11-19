@@ -112,7 +112,6 @@ public class Repuesto extends ItemTaller implements IJson {
         try {
             repuesto.setNombre(object.getString("nombre"));
             repuesto.setPrecio(object.getDouble("precio"));
-            repuesto.setCantidad(object.getInt("cantidad"));
             repuesto.setId(object.getInt("id"));
             repuesto.setStock(object.getInt("stock"));
             repuesto.setMarca(Marca.valueOf(object.getString("marca")));

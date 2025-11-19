@@ -103,8 +103,8 @@ public class Cliente extends Persona implements IJson {
             /// Aca se tienen que volver a pasar los atributos de la clase padre.
             cliente.setNombre(object.getString("nombre"));
             cliente.setApellido(object.getString("apellido"));
-            cliente.setDni(object.getInt("dni"));
-            cliente.setTelefono(object.getInt("telefono"));
+            cliente.setDni(object.getLong("dni"));
+            cliente.setTelefono(object.getLong("telefono"));
             cliente.setEmail(object.getString("email"));
 
             /// Los atributos de cliente van aca
