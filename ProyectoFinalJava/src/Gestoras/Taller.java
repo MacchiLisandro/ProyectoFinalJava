@@ -192,9 +192,13 @@ public class Taller {
         gestorItemTaller.eliminar(item);
     }
 
-    public void modificarStockRepuesto(String nombre, int cantidad) throws NoSeEncuentraEnRegistroException {
+    public void modificarStockRepuesto(String nombre, int cantidad) throws NoSeEncuentraEnRegistroException, StockInsuficienteException {
         Repuesto repuesto = (Repuesto) buscarItemTaller(nombre);
-        repuesto.setStock(cantidad + repuesto.getStock());
+        int nuevoStock = repuesto.getStock() + cantidad;
+        if(nuevoStock<0){
+            throw new StockInsuficienteException("Stock insuficiente. Hay " + repuesto.getStock() + " disponibles");
+        }
+        repuesto.setStock(nuevoStock);
     }
     
 
