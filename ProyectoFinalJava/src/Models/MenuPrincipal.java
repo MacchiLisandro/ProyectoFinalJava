@@ -1,6 +1,9 @@
 package Models;
 
 import Gestoras.Taller;
+import Exceptions.UsuarioNoEncontradoException;
+import Exceptions.UsuarioYaRegistradoException;
+
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -9,8 +12,7 @@ public class MenuPrincipal {
     private Taller taller = new Taller();
 
     public void mostrarMenu() {
-
-        int opcion = 1;
+        int opcion;
 
         do {
             System.out.println("\n===== MENÚ PRINCIPAL =====");
@@ -26,11 +28,11 @@ public class MenuPrincipal {
             switch (opcion) {
 
                 case 1:
-                    // iniciarSesion();
+                    iniciarSesion();
                     break;
 
                 case 2:
-                    // registrarse();
+                    registrarse();
                     break;
 
                 case 3:
@@ -45,23 +47,26 @@ public class MenuPrincipal {
         } while (opcion != 3);
     }
 
+    // =======================================================
+    // MÉTODOS ADAPTADOS A TUS FIRMAS REALES
+    // =======================================================
 
     private void iniciarSesion() {
         System.out.println("\n--- INICIAR SESIÓN ---");
 
         System.out.print("Usuario: ");
-        String user = sc.nextLine();
+        String usuario = sc.nextLine();
 
         System.out.print("Contraseña: ");
-        String pass = sc.nextLine();
+        String contrasenia = sc.nextLine();
 
-        // Acá llamás al taller
-        boolean ok = taller.iniciarSesion(user, pass);
-
-        if (ok) {
-            System.out.println("Inicio de sesión exitoso.");
-        } else {
-            System.out.println("Usuario o contraseña incorrectos.");
+        try {
+            boolean ok = taller.iniciarSesion(usuario, contrasenia);
+            if (ok) {
+                System.out.println("Sesión iniciada correctamente.");
+            }
+        } catch (UsuarioNoEncontradoException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -71,33 +76,35 @@ public class MenuPrincipal {
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
 
+        System.out.print("Apellido: ");
+        String apellido = sc.nextLine();
+
+        System.out.print("DNI: ");
+        int dni = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Teléfono: ");
+        int telefono = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+
         System.out.print("Usuario: ");
-        String user = sc.nextLine();
+        String usuario = sc.nextLine();
 
         System.out.print("Contraseña: ");
-        String pass = sc.nextLine();
+        String contrasenia = sc.nextLine();
 
-        // Acá llamás al taller
-        boolean ok = taller.registrarUsuario(nombre, user, pass);
-
-        if (ok) {
-            System.out.println("Usuario registrado correctamente.");
-        } else {
-            System.out.println("Ese usuario ya existe.");
+        try {
+            taller.registrarse(nombre, apellido, dni, telefono, email, usuario, contrasenia);
+            System.out.println("Registro exitoso. Usuario logueado automáticamente.");
+        } catch (UsuarioYaRegistradoException e) {
+            System.out.println(e.getMessage());
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 }
+
 
 
 

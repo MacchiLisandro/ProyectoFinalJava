@@ -1,5 +1,6 @@
 package Gestoras;
 
+import Enums.MetodoDePago;
 import Exceptions.*;
 import Models.*;
 import org.json.JSONArray;
@@ -27,9 +28,18 @@ public class Taller {
         gestorItemTaller = new GestoraGenerica<>();
     }
     /// Metodo para actualizar el contador. pendiente---
-    public void actualizarContadorId (){
+     /*public void actualizarContadorId() {
+        int max = 0;
 
+        for (Ticket t : gestorTickets) {
+            if (t.getId() > max) {
+                max = t.getId();
+            }
+        }
+
+        Ticket.setContadorIds(max + 1);
     }
+*/
     /// Metodos de funcionamiento-----------------------------------------------------------------------------------------
 
     /// Metodo para ingresar un cliente
@@ -53,9 +63,21 @@ public class Taller {
     ///
 
     /// Metodo para crear un ticket
-    public void crearTicket (){
 
+    public Ticket crearTicket(Cliente cliente, MetodoDePago metodo) {
+        if (mecanicoLogeado == null) {
+            throw new RuntimeException("No hay mecánico logueado.");
+        }
+
+        /// aca se asigna el mecanico logueado
+        Ticket ticket = new Ticket(cliente, mecanicoLogeado, metodo);
+
+        /// se agrega al registro de ticket
+        gestorTickets.add(ticket);
+
+        return ticket;
     }
+
 
     /// Metodo buscar mecanico
     public Mecanico buscarMecanico (String usuario){
