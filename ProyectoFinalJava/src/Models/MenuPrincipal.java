@@ -184,7 +184,7 @@ public class MenuPrincipal {
     private void crearTicket() {
         try {
             System.out.print("DNI del cliente: ");
-            long dni = sc.nextInt();
+            long dni = sc.nextLong();
             sc.nextLine();
 
             Cliente cliente = taller.buscarCliente(dni);

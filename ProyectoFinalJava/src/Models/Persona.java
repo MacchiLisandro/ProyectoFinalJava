@@ -82,13 +82,10 @@ public abstract class Persona  implements IJson {
 
     @Override
     public String toString() {
-        return "Persona{" +
-                "nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", dni=" + dni +
-                ", telefono=" + telefono +
-                ", email='" + email + '\'' +
-                '}';
+        return "[" + dni + "] "
+                + nombre + " " + apellido
+                + " | Tel: " + telefono
+                + " | Email: " + email;
     }
 
     @Override

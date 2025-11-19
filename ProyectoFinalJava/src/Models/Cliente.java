@@ -49,10 +49,8 @@ public class Cliente extends Persona implements IJson {
     @Override
     public String toString() {
         return super.toString() +
-                "Cliente{" +
-                "deuda=" + deuda +
-                ", arrayVehiculo=" + arrayVehiculo +
-                '}';
+                " | Deuda: $" + deuda +
+                " | Vehículos: " + arrayVehiculo.size();
     }
 
         /// Metodo para agregar un vehiculo al cliente
