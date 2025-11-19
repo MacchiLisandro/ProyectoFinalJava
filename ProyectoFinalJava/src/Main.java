@@ -56,13 +56,16 @@ public class Main {
 
 
         Taller taller = new Taller();
-        try {
-            taller.registrarse("aaa","bbb",123,223,"asd","aaa","123");
+        taller.cargarTodo();
+        /*try {
+            taller.registrarse("Lisandro","Macchi",1234567,223,"lisandro@gmail.com","lisandro","lisandro");
+            taller.registrarse("Mateo","Benegas",1234789,223,"mateo@gmail.com","mateo","mateo");
+            taller.guardarTodo();
         } catch (UsuarioYaRegistradoException e) {
             throw new RuntimeException(e);
         } catch (DuplicadoException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         MenuPrincipal menu = new MenuPrincipal(taller);
 
 
