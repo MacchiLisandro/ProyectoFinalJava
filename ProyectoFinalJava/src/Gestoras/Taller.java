@@ -1,8 +1,6 @@
 package Gestoras;
 
-import Enums.MetodoDePago;
-import Exceptions.DuplicadoException;
-import Exceptions.NoSeEncuentraEnRegistroException;
+import Exceptions.*;
 import Models.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 public class Taller {
+    private Mecanico mecanicoLogeado;
     private GestoraGenerica<Cliente> gestorClientes;
     private GestoraGenerica<Mecanico> gestorMecanicos;
     private GestoraGenerica<ItemTaller> gestorItemTaller;
@@ -28,18 +27,9 @@ public class Taller {
         gestorItemTaller = new GestoraGenerica<>();
     }
     /// Metodo para actualizar el contador. pendiente---
-    /*public void actualizarContadorId() {
-        int max = 0;
+    public void actualizarContadorId (){
 
-        for (Ticket t : gestorTickets) {
-            if (t.getId() > max) {
-                max = t.getId();
-            }
-        }
-
-        Ticket.setContadorIds(max + 1);
     }
-*/
     /// Metodos de funcionamiento-----------------------------------------------------------------------------------------
 
     /// Metodo para ingresar un cliente
@@ -60,22 +50,44 @@ public class Taller {
         } throw new NoSeEncuentraEnRegistroException("El cliente no se encuentra en la lista");
     }
 
+    ///
+
     /// Metodo para crear un ticket
-    /*
-    public Ticket crearTicket(Cliente cliente, MetodoDePago metodo) {
-        if (mecanicoLogueado == null) {
-            throw new RuntimeException("No hay mecánico logueado.");
-        }
+    public void crearTicket (){
 
-        /// aca se asigna el mecanico logueado
-        Ticket ticket = new Ticket(cliente, mecanicoLogueado, metodo);
-
-        /// se agrega al registro de ticket
-        gestorTickets.add(ticket);
-
-        return ticket;
     }
-*/
+
+    /// Metodo buscar mecanico
+    public Mecanico buscarMecanico (String usuario){
+        for (Mecanico m: gestorMecanicos.contenedor){
+            if(m.getUsuario().equals(usuario)){
+                return m;
+            }
+        } return null;
+    }
+
+    /// Metodo para iniciar sesion
+    public boolean iniciarSesion (String usuario, String contrasenia)throws UsuarioNoEncontradoException{
+        String contraseniaHasheada = Seguridad.hashearContrasenia(contrasenia);
+        Mecanico m = buscarMecanico(usuario);
+        if(m!=null && m.getContrasenia().equals(contraseniaHasheada)){
+            this.mecanicoLogeado = m;
+            return true;
+        } throw new UsuarioNoEncontradoException("El usuario o la contraseña no son correctos");
+    }
+
+    public void registrarse (String nombre, String apellido, int dni, int telefono, String email, String usuario, String contrasenia)throws UsuarioYaRegistradoException{
+        Mecanico m = buscarMecanico(usuario);
+        if(m==null){
+            Mecanico mecanico = new Mecanico(nombre, apellido, dni, telefono, email, usuario, contrasenia);
+            this.mecanicoLogeado = mecanico;
+        } else {
+            throw new UsuarioYaRegistradoException("El usuario ya esta registrado");
+        }
+    }
+
+
+
     /// Metodo que calcula ganancias mensuales
     public double calcularGananciaMensual(int mes, int anio) {
         double total = 0;
@@ -163,10 +175,7 @@ public class Taller {
         for(int i = 0; i<arrayTickets.length(); i++){
             this.gestorTickets.add(Ticket.fromJson(arrayTickets.getJSONObject(i)));
         }
-        Ticket.setContadorIds(gestorTickets.getLast().getId()+1);  ///Si se rompe cambiar a la linea de abajo
-
-
-        ///actualizarContadorId();  Por si se rompe.
+        Ticket.setContadorIds(gestorTickets.getLast().getId()+1);
     }
 
     private JSONArray ticketToJsonArray () throws JSONException {
