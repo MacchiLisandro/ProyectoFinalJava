@@ -6,6 +6,7 @@ import Interfaces.IJson;
 import Models.JsonUtiles;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashSet;
 
@@ -14,7 +15,7 @@ public class GestoraGenerica<T extends IJson>{
     public HashSet<T>contenedor=new HashSet<>();
 
 
-    public void toJsonArray () throws JSONException {
+    public JSONArray toJsonArray () throws JSONException {
         JSONArray jsonArray = new JSONArray();
         try{
             for (T t: contenedor){
@@ -23,18 +24,19 @@ public class GestoraGenerica<T extends IJson>{
         } catch (JSONException e){
             e.printStackTrace();
         }
-        JsonUtiles.grabarUnJson(jsonArray, "algo.json");
+        return jsonArray;
     }
+
 
     public void agregar(T t)throws DuplicadoException{
         if (!contenedor.add(t)){
-            throw new DuplicadoException("Ya se encuentra en el Registro");
+            throw new DuplicadoException("El elemento se encuentra en la coleccion");
         }
     }
 
     public void eliminar(T t)throws NoSeEncuentraEnRegistroException {
         if(!contenedor.remove(t)){
-            throw new NoSeEncuentraEnRegistroException("No se encuentra el elemento");
+            throw new NoSeEncuentraEnRegistroException("No se encuentra en la lista");
         }
     }
 
@@ -45,5 +47,6 @@ public class GestoraGenerica<T extends IJson>{
         }
         return sb.toString();
     }
+
 }
 

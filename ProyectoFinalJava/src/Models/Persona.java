@@ -4,7 +4,7 @@ import Interfaces.IJson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Persona  implements IJson {
+public abstract class Persona  implements IJson {
 
 
     private String nombre;
@@ -22,6 +22,14 @@ public class Persona  implements IJson {
         this.dni = dni;
         this.telefono = telefono;
         this.email = email;
+    }
+
+    public Persona() {
+        this.nombre ="";
+        this.apellido = "";
+        this.dni = 0;
+        this.telefono = 0;
+        this.email = "";
     }
 
 
@@ -110,4 +118,6 @@ public class Persona  implements IJson {
         }
         return object;
     }
+
+
 }

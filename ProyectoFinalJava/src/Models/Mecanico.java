@@ -13,7 +13,7 @@ public class Mecanico extends Persona implements IJson {
     public Mecanico(String nombre, String apellido, int dni, int telefono, String email, String usuario, String contrasenia) {
         super(nombre, apellido, dni, telefono, email);
         this.usuario = usuario;
-        this.contrasenia = contrasenia;
+        this.contrasenia = Seguridad.hashearContrasenia(contrasenia);
     }
 
     /// Constructores
@@ -44,6 +44,9 @@ public class Mecanico extends Persona implements IJson {
         this.contrasenia = Seguridad.hashearContrasenia(contrasenia);
     }
 
+    public void setContraseniaJson(String contrasenia){
+        this.contrasenia = contrasenia;
+    }
 
     /// Metodos
 
@@ -83,6 +86,29 @@ public class Mecanico extends Persona implements IJson {
         return contrasenia.equals(hash);
 
     }
+
+    /// fromJson
+
+    public static Mecanico fromJson(JSONObject object) {
+        Mecanico mecanico = new Mecanico(); // constructor vacío
+        try {
+            ///  Los atributos que tienen como herencia de Persona
+            mecanico.setNombre(object.getString("nombre"));
+            mecanico.setApellido(object.getString("apellido"));
+            mecanico.setDni(object.getInt("dni"));
+            mecanico.setTelefono(object.getInt("telefono"));
+            mecanico.setEmail(object.getString("email"));
+
+            // Campos propios de Mecanico
+            mecanico.setUsuario(object.getString("usuario"));
+            mecanico.setContraseniaJson(object.getString("contrasenia")); // se hash dentro del setter
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return mecanico;
+    }
+
 
 
 
