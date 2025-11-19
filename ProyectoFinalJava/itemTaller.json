@@ -1,1 +1,40 @@
-[]
+[
+  {
+    "nombre": "Filtro de aceite",
+    "precio": 8500.0,
+    "stock": 12,
+    "marca": "RENAULT",
+    "costo": 5000.0,
+    "tipo": "Repuesto"
+  },
+  {
+    "nombre": "Pastillas de freno",
+    "precio": 21000.0,
+    "stock": 7,
+    "marca": "FORD",
+    "costo": 15000.0,
+    "tipo": "Repuesto"
+  },
+  {
+    "nombre": "Aceite sintético 5W30",
+    "precio": 19000.0,
+    "stock": 5,
+    "marca": "VOLKSWAGEN",
+    "costo": 12000.0,
+    "tipo": "Repuesto"
+  },
+  {
+    "nombre": "Cambio de aceite",
+    "precio": 8000.0,
+    "tiempoEstimado": 20,
+    "descripcion": "Cambio completo de aceite.",
+    "tipo": "Servicio"
+  },
+  {
+    "nombre": "Revisión general",
+    "precio": 15000.0,
+    "tiempoEstimado": 60,
+    "descripcion": "Control general del vehículo.",
+    "tipo": "Servicio"
+  }
+]

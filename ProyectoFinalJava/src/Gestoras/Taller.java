@@ -39,6 +39,10 @@ public class Taller {
         return gestorItemTaller;
     }
 
+    public LinkedHashSet<Ticket> getGestorTickets() {
+        return gestorTickets;
+    }
+
     /// Metodo para actualizar el contador. pendiente---
      /*public void actualizarContadorId() {
         int max = 0;
@@ -102,6 +106,7 @@ public class Taller {
 
         return ticket;
     }
+
 
 
     /// Metodo buscar mecanico
@@ -169,8 +174,8 @@ public class Taller {
         gestorItemTaller.agregar(servicio);
     }
 
-    public void agregarRepuesto(String nombre, double precio, int id, int stock, Marca marca, double costo) throws DuplicadoException{
-        Repuesto repuesto = new Repuesto(nombre, precio, id, stock, marca, costo);
+    public void agregarRepuesto(String nombre, double precio, int stock, Marca marca, double costo) throws DuplicadoException{
+        Repuesto repuesto = new Repuesto(nombre, precio,  stock, marca, costo);
         gestorItemTaller.agregar(repuesto);
     }
 

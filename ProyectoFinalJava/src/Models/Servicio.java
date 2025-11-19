@@ -35,6 +35,14 @@ public class Servicio extends ItemTaller implements IJson {
         this.descripcion = descripcion;
     }
 
+    @Override
+    public String toString() {
+        return "Servicio -> " +
+                super.toString() +
+                " | Tiempo estimado: " + tiempoEstimado + " min" +
+                " | Descripción: " + descripcion;
+    }
+
 
     /// To json
 /// Con el identificador de tipo es para en ticket hacer una diferencia entre servicio y repuesto

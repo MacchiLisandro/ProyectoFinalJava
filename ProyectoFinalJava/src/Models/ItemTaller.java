@@ -37,6 +37,11 @@ public abstract class ItemTaller  implements IJson {
         return Objects.equals(nombre, that.nombre);
     }
 
+    public String toString() {
+        return "Nombre: " + nombre +
+                " | Precio: $" + precio;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hashCode(nombre);

@@ -14,28 +14,19 @@ public class Repuesto extends ItemTaller implements IJson {
     private Marca marca;
     private double costo;
 
-    public Repuesto(String nombre, double precio, int id, int stock, Marca marca, double costo) {
+    public Repuesto(String nombre, double precio, int stock, Marca marca, double costo) {
         super(nombre, precio);
-        this.id = id;
         this.stock = stock;
         this.marca = marca;
         this.costo = costo;
     }
     public Repuesto() {
         super("", 0.0);
-        this.id = 0;
         this.stock = 0;
         this.marca = null;
         this.costo = 0.0;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getStock() {
         return stock;
@@ -85,7 +76,14 @@ public class Repuesto extends ItemTaller implements IJson {
         this.setStock(cantidad);
     }
 
-
+    @Override
+    public String toString() {
+        return "Repuesto -> " +
+                super.toString() +
+                " | Marca: " + marca +
+                " | Costo: $" + costo +
+                " | Stock: " + stock;
+    }
 
     /// To json
 
@@ -94,7 +92,6 @@ public class Repuesto extends ItemTaller implements IJson {
     public JSONObject toJson() throws JSONException {
         JSONObject object = super.toJson();
         try {
-            object.put("id", this.id);
             object.put("stock", this.stock);
             object.put("marca", this.marca);
             object.put("costo", this.costo);
@@ -112,7 +109,6 @@ public class Repuesto extends ItemTaller implements IJson {
         try {
             repuesto.setNombre(object.getString("nombre"));
             repuesto.setPrecio(object.getDouble("precio"));
-            repuesto.setId(object.getInt("id"));
             repuesto.setStock(object.getInt("stock"));
             repuesto.setMarca(Marca.valueOf(object.getString("marca")));
             repuesto.setCosto(object.getDouble("costo"));

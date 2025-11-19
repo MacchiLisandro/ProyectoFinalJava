@@ -106,14 +106,16 @@ public class Ticket implements IJson {
         } carrito.remove(itemTaller);
     }
 
-    public void modificarCantidad (ItemTaller itemTaller, int cantidad)throws NoSeEncuentraEnCarritoException{
-        if(!carrito.contains(itemTaller)){
-            throw new NoSeEncuentraEnCarritoException("Ese item no se encuentra en el carrito");
+    public String listarCarrito(){
+        StringBuilder sb = new StringBuilder();
+        if (carrito.isEmpty()) {
+            return "El carrito está vacío.\n";
         }
-        for (ItemTaller i : carrito){
-            if(i.equals(itemTaller)){
-            }
+        sb.append("---Carrito---");
+        for (ItemTaller item : carrito){
+            sb.append(carrito.toString()).append("\n");
         }
+        return sb.toString();
     }
 
     public void calculaPrecio (){

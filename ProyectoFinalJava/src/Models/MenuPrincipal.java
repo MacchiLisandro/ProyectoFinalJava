@@ -1,8 +1,6 @@
 package Models;
 
-import Exceptions.DuplicadoException;
-import Exceptions.UsuarioNoEncontradoException;
-import Exceptions.UsuarioYaRegistradoException;
+import Exceptions.*;
 import Gestoras.GestoraGenerica;
 import Gestoras.Taller;
 import Enums.MetodoDePago;
@@ -204,7 +202,8 @@ public class MenuPrincipal {
             MetodoDePago metodo = MetodoDePago.values()[op - 1];
 
             Ticket nuevo = taller.crearTicket(cliente, metodo);
-
+            cargarEnCarrito(nuevo);
+            Impresora.imprimirTicket(nuevo);
             System.out.println("Ticket creado. ID: " + nuevo.getId());
 
         } catch (Exception e) {
@@ -212,13 +211,38 @@ public class MenuPrincipal {
         }
     }
 
-    private void cargarEnCarrito(){
-        taller.getGestorItemTaller().listar();
+    private void cargarEnCarrito(Ticket nuevo) throws NoSeEncuentraEnRegistroException, NoSeEncuentraEnCarritoException {
         int opcion = 0;
-
         do{
-            System.out.println("Ingrese codigo de prodcuto/servicio: ");
+            System.out.println("Menu carrito:");
+            System.out.println("1) Agregar item al carrito");
+            System.out.println("2) Eliminar item del carrito");
+            System.out.println("3) Listar carrito");
             opcion = sc.nextInt();
+            sc.nextLine();
+            switch(opcion){
+                case 1:
+                    System.out.println("Ingrese nombre del item");
+                    System.out.println(taller.getGestorItemTaller().listar());
+                    String nombre = sc.nextLine();
+                    sc.nextLine();
+                    ItemTaller item = taller.buscarItemTaller(nombre);
+                    nuevo.agregarCarrito(item);
+                    break;
+                case 2:
+                    System.out.println("Ingrese nombre del item a eliminar");
+                    nombre = sc.nextLine();
+                    item = taller.buscarItemTaller(nombre);
+                    nuevo.eliminarCarrito(item);
+                    break;
+                case 3:
+                    System.out.println(nuevo.listarCarrito());
+                    break;
+                case 0:
+                    System.out.println("Saliendo de menu carrito");
+                default:
+                    System.out.println("Opcion invalida");
+            }
 
         }while(opcion!=0);
     }
