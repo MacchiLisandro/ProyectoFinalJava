@@ -231,8 +231,11 @@ public class Taller {
         gestorTickets.clear();
         for(int i = 0; i<arrayTickets.length(); i++){
             this.gestorTickets.add(Ticket.fromJson(arrayTickets.getJSONObject(i)));
+        } if(gestorTickets.isEmpty()){
+            Ticket.setContadorIds(0);
+        } else {
+            Ticket.setContadorIds(gestorTickets.getLast().getId()+1);
         }
-        Ticket.setContadorIds(gestorTickets.getLast().getId()+1);   ///Si esto falla llamar actualizarcontadorIDs
     }
 
     private JSONArray ticketToJsonArray () throws JSONException {
