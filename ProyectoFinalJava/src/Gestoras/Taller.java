@@ -156,7 +156,6 @@ public class Taller {
                 total += t.getPrecioTotal();
             }
         }
-
         return total;
     }
 
