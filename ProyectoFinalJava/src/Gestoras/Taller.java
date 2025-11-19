@@ -232,7 +232,7 @@ public class Taller {
         for(int i = 0; i<arrayTickets.length(); i++){
             this.gestorTickets.add(Ticket.fromJson(arrayTickets.getJSONObject(i)));
         }
-        Ticket.setContadorIds(gestorTickets.getLast().getId()+1);
+        Ticket.setContadorIds(gestorTickets.getLast().getId()+1);   ///Si esto falla llamar actualizarcontadorIDs
     }
 
     private JSONArray ticketToJsonArray () throws JSONException {
