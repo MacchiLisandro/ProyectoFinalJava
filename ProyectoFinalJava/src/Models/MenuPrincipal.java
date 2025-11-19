@@ -1,5 +1,6 @@
 package Models;
 
+import Exceptions.DuplicadoException;
 import Gestoras.Taller;
 import Exceptions.UsuarioNoEncontradoException;
 import Exceptions.UsuarioYaRegistradoException;
@@ -23,7 +24,7 @@ public class MenuPrincipal {
             System.out.print("Elija una opción: ");
 
             opcion = sc.nextInt();
-            sc.nextLine(); // limpiar buffer
+            sc.nextLine();
 
             switch (opcion) {
 
@@ -48,7 +49,7 @@ public class MenuPrincipal {
     }
 
     // =======================================================
-    // MÉTODOS ADAPTADOS A TUS FIRMAS REALES
+                         /// LOGEO///
     // =======================================================
 
     private void iniciarSesion() {
@@ -101,6 +102,8 @@ public class MenuPrincipal {
             System.out.println("Registro exitoso. Usuario logueado automáticamente.");
         } catch (UsuarioYaRegistradoException e) {
             System.out.println(e.getMessage());
+        } catch (DuplicadoException e) {
+            throw new RuntimeException(e);
         }
     }
 }
