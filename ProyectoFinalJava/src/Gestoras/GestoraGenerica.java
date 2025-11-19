@@ -36,7 +36,7 @@ public class GestoraGenerica<T extends IJson>{
 
     public void eliminar(T t)throws NoSeEncuentraEnRegistroException {
         if(!contenedor.remove(t)){
-            throw new NoSeEncuentraEnRegistroException("");
+            throw new NoSeEncuentraEnRegistroException("No se encuentra en la lista");
         }
     }
 

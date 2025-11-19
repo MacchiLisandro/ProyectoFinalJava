@@ -1,6 +1,7 @@
 package Gestoras;
 
 import Exceptions.DuplicadoException;
+import Exceptions.NoSeEncuentraEnRegistroException;
 import Models.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,8 +34,20 @@ public class Taller {
 
     /// Metodo para ingresar un cliente
     public void agregarCliente(String nombre, String apellido, int dni, int telefono, String email)throws DuplicadoException{
-        Cliente clientito = new Cliente(nombre, apellido, dni, telefono, email);
-        gestorClientes.agregar(clientito);
+        gestorClientes.agregar(new Cliente(nombre, apellido, dni, telefono, email));
+    }
+
+    public void eliminarCliente(int dni)throws NoSeEncuentraEnRegistroException{
+        Cliente cliente = buscarCliente(dni);
+        gestorClientes.eliminar(cliente);
+    }
+
+    public Cliente buscarCliente (int dni)throws NoSeEncuentraEnRegistroException{
+        for (Cliente c: gestorClientes.contenedor){
+            if(c.getDni()==dni){
+                return c;
+            }
+        } throw new NoSeEncuentraEnRegistroException("El cliente no se encuentra en la lista");
     }
 
     /// Metodo para crear un ticket
@@ -75,55 +88,62 @@ public class Taller {
     }
 
     public void cargarTodo(){
-        int nticket = 0;
-
         try{
-            JSONTokener tokener = JsonUtiles.leerUnJson("clientes.json");
-            JSONArray arrayClientes = new JSONArray(tokener);
-            gestorClientes.contenedor.clear();
-            for (int i = 0; i<arrayClientes.length(); i++){
-                this.gestorClientes.agregar(Cliente.fromJson(arrayClientes.getJSONObject(i)));
-
-            }
-
-            tokener = JsonUtiles.leerUnJson("mecanicos.json");
-            JSONArray arrayMecanicos = new JSONArray();
-            gestorMecanicos.contenedor.clear();
-            for(int i = 0; i<arrayMecanicos.length(); i++){
-                this.gestorMecanicos.agregar(Mecanico.fromJson(arrayMecanicos.getJSONObject(i)));
-            }
-
-            tokener = JsonUtiles.leerUnJson("itemTaller.json");
-            JSONArray arrayItemTaller = new JSONArray();
-            gestorItemTaller.contenedor.clear();
-            for(int i = 0; i<arrayItemTaller.length(); i++){
-                JSONObject itemJson = arrayItemTaller.getJSONObject(i);
-                String tipo = itemJson.getString("tipo");
-
-                if (tipo.equals("Repuesto")){
-                    this.gestorItemTaller.agregar(Repuesto.fromJson(arrayItemTaller.getJSONObject(i)));
-                }
-                if (tipo.equals("Servicio")){
-                    this.gestorItemTaller.agregar(Servicio.fromJson(arrayItemTaller.getJSONObject(i)));
-                }
-            }
-
-            tokener = JsonUtiles.leerUnJson("tickets.json");
-            JSONArray  arrayTickets = new JSONArray();
-            gestorTickets.clear();
-            for(int i = 0; i<arrayTickets.length(); i++){
-                this.gestorTickets.add(Ticket.fromJson(arrayTickets.getJSONObject(i)));
-            }
-
+            cargarClientes();
+            cargarMecanicos();
+            cargarItemTaller();
+            cargarTickets();
         } catch (JSONException e){
             e.printStackTrace();
         } catch (DuplicadoException e){
             System.out.println(e.getMessage());
         }
-        Ticket.setContadorIds(nticket);
     }
 
+    private void cargarClientes()throws JSONException, DuplicadoException{
+        JSONTokener tokener = JsonUtiles.leerUnJson("clientes.json");
+        JSONArray arrayClientes = new JSONArray(tokener);
+        gestorClientes.contenedor.clear();
+        for (int i = 0; i<arrayClientes.length(); i++){
+            this.gestorClientes.agregar(Cliente.fromJson(arrayClientes.getJSONObject(i)));
 
+        }
+    }
+
+    private void cargarMecanicos()throws JSONException, DuplicadoException{
+        JSONTokener tokener = JsonUtiles.leerUnJson("mecanicos.json");
+        JSONArray arrayMecanicos = new JSONArray(tokener);
+        gestorMecanicos.contenedor.clear();
+        for(int i = 0; i<arrayMecanicos.length(); i++){
+            this.gestorMecanicos.agregar(Mecanico.fromJson(arrayMecanicos.getJSONObject(i)));
+        }
+    }
+
+    private void cargarItemTaller()throws JSONException, DuplicadoException{
+        JSONTokener tokener = JsonUtiles.leerUnJson("itemTaller.json");
+        JSONArray arrayItemTaller = new JSONArray(tokener);
+        gestorItemTaller.contenedor.clear();
+        for(int i = 0; i<arrayItemTaller.length(); i++) {
+            JSONObject itemJson = arrayItemTaller.getJSONObject(i);
+            String tipo = itemJson.getString("tipo");
+
+            if (tipo.equals("Repuesto")) {
+                this.gestorItemTaller.agregar(Repuesto.fromJson(arrayItemTaller.getJSONObject(i)));
+            }
+            if (tipo.equals("Servicio")) {
+                this.gestorItemTaller.agregar(Servicio.fromJson(arrayItemTaller.getJSONObject(i)));
+            }
+        }}
+
+    private void cargarTickets() throws JSONException {
+        JSONTokener tokener = JsonUtiles.leerUnJson("tickets.json");
+        JSONArray  arrayTickets = new JSONArray(tokener);
+        gestorTickets.clear();
+        for(int i = 0; i<arrayTickets.length(); i++){
+            this.gestorTickets.add(Ticket.fromJson(arrayTickets.getJSONObject(i)));
+        }
+        Ticket.setContadorIds(gestorTickets.getLast().getId()+1);
+    }
 
     private JSONArray ticketToJsonArray () throws JSONException {
         JSONArray jsonArray = new JSONArray();
