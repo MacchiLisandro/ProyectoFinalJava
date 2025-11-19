@@ -41,7 +41,7 @@ public class GestoraGenerica<T extends IJson>{
     public String listar (){
         StringBuilder sb = new StringBuilder();
         for (T t: contenedor){
-            sb.append(t.toString());
+            sb.append(t.toString()).append("\n");
         }
         return sb.toString();
     }
