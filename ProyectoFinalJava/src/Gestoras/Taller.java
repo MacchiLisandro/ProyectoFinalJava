@@ -76,17 +76,21 @@ public class Taller {
         } throw new UsuarioNoEncontradoException("El usuario o la contraseña no son correctos");
     }
 
-    public void registrarse (String nombre, String apellido, int dni, int telefono, String email, String usuario, String contrasenia)throws UsuarioYaRegistradoException{
+    public void registrarse (String nombre, String apellido, int dni, int telefono, String email, String usuario, String contrasenia) throws UsuarioYaRegistradoException, DuplicadoException {
         Mecanico m = buscarMecanico(usuario);
         if(m==null){
             Mecanico mecanico = new Mecanico(nombre, apellido, dni, telefono, email, usuario, contrasenia);
             this.mecanicoLogeado = mecanico;
+            gestorMecanicos.agregar(mecanico);
         } else {
             throw new UsuarioYaRegistradoException("El usuario ya esta registrado");
         }
     }
 
-
+    public void darseDeBaja () throws NoSeEncuentraEnRegistroException {
+       gestorMecanicos.eliminar(mecanicoLogeado);
+       this.mecanicoLogeado = null;
+    }
 
     /// Metodo que calcula ganancias mensuales
     public double calcularGananciaMensual(int mes, int anio) {

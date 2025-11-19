@@ -23,7 +23,7 @@ public class Cliente extends Persona implements IJson {
     public Cliente() {
         super("", "", 0, 0, "");
         this.deuda = deuda;
-        this.arrayVehiculo = arrayVehiculo;
+        this.arrayVehiculo = new ArrayList<>();
     }
 
 
