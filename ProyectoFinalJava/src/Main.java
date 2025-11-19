@@ -1,6 +1,9 @@
 import Exceptions.DuplicadoException;
 import Gestoras.Taller;
+import Models.Cliente;
+import Models.Mecanico;
 import Models.MenuPrincipal;
+import Models.Ticket;
 import org.json.JSONArray;
 
 public class Main {
@@ -30,8 +33,6 @@ public class Main {
         // Pasamos el taller creado al menú
         MenuPrincipal menu = new MenuPrincipal();
         menu.mostrarMenu();
-
-
 
 
 
