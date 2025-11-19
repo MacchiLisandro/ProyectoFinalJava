@@ -5,6 +5,7 @@ import Gestoras.Taller;
 import Exceptions.UsuarioNoEncontradoException;
 import Exceptions.UsuarioYaRegistradoException;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -55,11 +56,11 @@ public class MenuPrincipal {
     private void iniciarSesion() {
         System.out.println("\n--- INICIAR SESIÓN ---");
 
-        System.out.print("Usuario: ");
-        String usuario = sc.nextLine();
+            System.out.print("Usuario: ");
+            String usuario = sc.nextLine();
 
-        System.out.print("Contraseña: ");
-        String contrasenia = sc.nextLine();
+            System.out.print("Contraseña: ");
+            String contrasenia = sc.nextLine();
 
         try {
             boolean checkeado = taller.iniciarSesion(usuario, contrasenia);
@@ -79,14 +80,21 @@ public class MenuPrincipal {
 
         System.out.print("Apellido: ");
         String apellido = sc.nextLine();
+        long dni = 0;
+        long telefono = 0;
+        try{
+            System.out.print("DNI: ");
+            dni = sc.nextLong();
+            sc.nextLine();
 
-        System.out.print("DNI: ");
-        int dni = sc.nextInt();
-        sc.nextLine();
 
-        System.out.print("Teléfono: ");
-        int telefono = sc.nextInt();
-        sc.nextLine();
+            System.out.print("Teléfono: ");
+            telefono = sc.nextLong();
+            sc.nextLine();
+
+        } catch(InputMismatchException e){
+            System.out.println("Ingrese un numero");
+        }
 
         System.out.print("Email: ");
         String email = sc.nextLine();

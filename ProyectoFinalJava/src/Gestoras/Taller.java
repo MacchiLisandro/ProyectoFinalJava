@@ -1,5 +1,6 @@
 package Gestoras;
 
+import Enums.Marca;
 import Enums.MetodoDePago;
 import Exceptions.*;
 import Models.*;
@@ -43,16 +44,16 @@ public class Taller {
     /// Metodos de funcionamiento-----------------------------------------------------------------------------------------
 
     /// Metodo para ingresar un cliente
-    public void agregarCliente(String nombre, String apellido, int dni, int telefono, String email)throws DuplicadoException{
+    public void agregarCliente(String nombre, String apellido, long dni, long telefono, String email)throws DuplicadoException{
         gestorClientes.agregar(new Cliente(nombre, apellido, dni, telefono, email));
     }
 
-    public void eliminarCliente(int dni)throws NoSeEncuentraEnRegistroException{
+    public void eliminarCliente(long dni)throws NoSeEncuentraEnRegistroException{
         Cliente cliente = buscarCliente(dni);
         gestorClientes.eliminar(cliente);
     }
 
-    public Cliente buscarCliente (int dni)throws NoSeEncuentraEnRegistroException{
+    public Cliente buscarCliente (long dni)throws NoSeEncuentraEnRegistroException{
         for (Cliente c: gestorClientes.contenedor){
             if(c.getDni()==dni){
                 return c;
@@ -60,7 +61,34 @@ public class Taller {
         } throw new NoSeEncuentraEnRegistroException("El cliente no se encuentra en la lista");
     }
 
-    ///
+    /// Metodo para agregar un ItemTaller
+    public void agregarServicio(String nombre, double precio, int tiempoEstimado, String descripcion) throws DuplicadoException {
+        Servicio servicio = new Servicio(nombre, precio, tiempoEstimado, descripcion);
+        gestorItemTaller.agregar(servicio);
+    }
+
+    public void agregarRepuesto(String nombre, double precio, int id, int stock, Marca marca, double costo) throws DuplicadoException{
+        Repuesto repuesto = new Repuesto(nombre, precio, id, stock, marca, costo);
+        gestorItemTaller.agregar(repuesto);
+    }
+
+    public ItemTaller buscarItemTaller(String nombre) throws NoSeEncuentraEnRegistroException{
+        for (ItemTaller item : gestorItemTaller.contenedor){
+            if(item.getNombre().equals(nombre)){
+                return item;
+            }
+        } throw new NoSeEncuentraEnRegistroException("No existe ese item en la lista");
+    }
+
+    public void eliminarItemTaller(String nombre)throws NoSeEncuentraEnRegistroException{
+        ItemTaller item = buscarItemTaller(nombre);
+        gestorItemTaller.eliminar(item);
+    }
+
+    public void modificarStockRepuesto(String nombre, int cantidad) throws NoSeEncuentraEnRegistroException {
+        Repuesto repuesto = (Repuesto) buscarItemTaller(nombre);
+        repuesto.setStock(cantidad + repuesto.getStock());
+    }
 
     /// Metodo para crear un ticket
 
@@ -98,7 +126,7 @@ public class Taller {
         } throw new UsuarioNoEncontradoException("El usuario o la contraseña no son correctos");
     }
 
-    public void registrarse (String nombre, String apellido, int dni, int telefono, String email, String usuario, String contrasenia) throws UsuarioYaRegistradoException, DuplicadoException {
+    public void registrarse (String nombre, String apellido, long dni, long telefono, String email, String usuario, String contrasenia) throws UsuarioYaRegistradoException, DuplicadoException {
         Mecanico m = buscarMecanico(usuario);
         if(m==null){
             Mecanico mecanico = new Mecanico(nombre, apellido, dni, telefono, email, usuario, contrasenia);

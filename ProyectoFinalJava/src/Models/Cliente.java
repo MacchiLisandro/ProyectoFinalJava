@@ -14,7 +14,7 @@ public class Cliente extends Persona implements IJson {
 
     /// Constructor
 
-    public Cliente(String nombre, String apellido, int dni, int telefono, String email) {
+    public Cliente(String nombre, String apellido, long dni, long telefono, String email) {
         super(nombre, apellido, dni, telefono, email);
         this.deuda = 0;
         this.arrayVehiculo = new ArrayList<>();
