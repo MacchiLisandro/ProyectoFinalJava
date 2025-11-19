@@ -1,5 +1,6 @@
 package Models;
 
+import Enums.Marca;
 import Exceptions.DuplicadoException;
 import Exceptions.UsuarioNoEncontradoException;
 import Exceptions.UsuarioYaRegistradoException;
@@ -224,7 +225,8 @@ public class MenuPrincipal {
 
         do{
             System.out.println("\n===== MENÚ ITEMTALLER =====");
-            System.out.println();
+            System.out.println("1) Cargar nuevo repuesto");
+            System.out.println("1) Cargar nuevo servicio");
             System.out.println("=============================");
             System.out.print("Elija una opción: ");
 
@@ -240,8 +242,56 @@ public class MenuPrincipal {
             switch(opcion){
                 case 1:
                     break;
+                default:
+                    System.out.println("Opción inválida.");
+                    break;
             }
         }while();
+    }
+
+
+    private void cargarNuevoRepuesto(){
+        String nombre;
+        double precio;
+        int id;
+        int stock;
+        Marca marca;
+        double costo;
+
+        System.out.println("Nombre: ");
+        nombre = sc.nextLine();
+
+        System.out.println("Precio: ");
+        precio = sc.nextDouble();
+
+        sc.nextLine();
+
+        System.out.println("");
+    }
+
+    private void cargarNuevoServicio(){
+        String nombre;
+        double precio;
+        int tiempoEstimado;
+        String descripcion;
+
+        System.out.println("Nombre: ");
+        nombre = sc.nextLine();
+
+        System.out.println("Precio: ");
+        precio = sc.nextDouble();
+
+        sc.nextLine();
+
+        System.out.println("Tiempo estimado: ");
+        tiempoEstimado = sc.nextInt();
+
+        sc.nextLine();
+
+        System.out.println("Descripcion: ");
+        nombre = sc.nextLine();
+
+
     }*/
 
     ///  MANEJO DE TICKETS //////////////////////////////////////////////////////////////////////////////
@@ -288,7 +338,7 @@ public class MenuPrincipal {
         }while(opcion!=0);
     }
 
-    // MANEJO DE CLIENTES ////////////////////////////////////////////////////////////////////////////////
+    /// MANEJO DE CLIENTES ////////////////////////////////////////////////////////////////////////////////
 
     /**
      * pide datos al usuario para cargar un cliente nuevo
