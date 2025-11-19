@@ -28,10 +28,8 @@ public class GestoraGenerica<T extends IJson>{
     }
 
 
-    public void agregar(T t)throws DuplicadoException{
-        if (!contenedor.add(t)){
-            throw new DuplicadoException("El elemento se encuentra en la coleccion");
-        }
+    public boolean agregar(T t){
+        return contenedor.add(t);
     }
 
     public void eliminar(T t)throws NoSeEncuentraEnRegistroException {
@@ -47,6 +45,7 @@ public class GestoraGenerica<T extends IJson>{
         }
         return sb.toString();
     }
+
 
 }
 

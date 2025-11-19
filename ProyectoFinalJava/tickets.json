@@ -1,1 +1,127 @@
-[]
+[
+    {
+        "cliente": {
+            "deuda": 0,
+            "apellido": "cgh",
+            "telefono": 123,
+            "nombre": "asdfg",
+            "dni": 123,
+            "email": "",
+            "vehiculos": []
+        },
+        "metodoDePago": "EFECTIVO",
+        "fecha": "2025-11-19",
+        "mecanico": {
+            "apellido": "Benegas",
+            "usuario": "mateo",
+            "contrasenia": "34ddf679b4b0ed44ce874ec3e11cf84359acb7a09bacaa3e50232bbdce8da5b3",
+            "telefono": 223,
+            "nombre": "Mateo",
+            "dni": 1234789,
+            "email": "mateo@gmail.com"
+        },
+        "Id": 1,
+        "carrito": [],
+        "precioTotal": 0
+    },
+    {
+        "cliente": {
+            "deuda": 0,
+            "apellido": "bonucci",
+            "telefono": 456,
+            "nombre": "matias",
+            "dni": 789,
+            "email": "",
+            "vehiculos": []
+        },
+        "metodoDePago": "TARJETA_DEBITO",
+        "fecha": "2025-11-19",
+        "mecanico": {
+            "apellido": "Benegas",
+            "usuario": "mateo",
+            "contrasenia": "34ddf679b4b0ed44ce874ec3e11cf84359acb7a09bacaa3e50232bbdce8da5b3",
+            "telefono": 223,
+            "nombre": "Mateo",
+            "dni": 1234789,
+            "email": "mateo@gmail.com"
+        },
+        "Id": 3,
+        "carrito": [],
+        "precioTotal": 0
+    },
+    {
+        "cliente": {
+            "deuda": 0,
+            "apellido": "cgh",
+            "telefono": 123,
+            "nombre": "asdfg",
+            "dni": 123,
+            "email": "",
+            "vehiculos": []
+        },
+        "metodoDePago": "EFECTIVO",
+        "fecha": "2025-11-19",
+        "mecanico": {
+            "apellido": "Macchi",
+            "usuario": "lisandro",
+            "contrasenia": "7b5f0335c16a6e5f2af0b318ba12fc7c48056a3841bdd2a54df15d7d66122d69",
+            "telefono": 223,
+            "nombre": "Lisandro",
+            "dni": 1234567,
+            "email": "lisandro@gmail.com"
+        },
+        "Id": 5,
+        "carrito": [],
+        "precioTotal": 0
+    },
+    {
+        "cliente": {
+            "deuda": 0,
+            "apellido": "bonucci",
+            "telefono": 456,
+            "nombre": "matias",
+            "dni": 789,
+            "email": "",
+            "vehiculos": []
+        },
+        "metodoDePago": "TRANSFERENCIA",
+        "fecha": "2025-11-19",
+        "mecanico": {
+            "apellido": "Benegas",
+            "usuario": "mateo",
+            "contrasenia": "34ddf679b4b0ed44ce874ec3e11cf84359acb7a09bacaa3e50232bbdce8da5b3",
+            "telefono": 223,
+            "nombre": "Mateo",
+            "dni": 1234789,
+            "email": "mateo@gmail.com"
+        },
+        "Id": 7,
+        "carrito": [],
+        "precioTotal": 0
+    },
+    {
+        "cliente": {
+            "deuda": 0,
+            "apellido": "macchi",
+            "telefono": 456,
+            "nombre": "petra",
+            "dni": 456,
+            "email": "456",
+            "vehiculos": []
+        },
+        "metodoDePago": "EFECTIVO",
+        "fecha": "2025-11-19",
+        "mecanico": {
+            "apellido": "Benegas",
+            "usuario": "mateo",
+            "contrasenia": "34ddf679b4b0ed44ce874ec3e11cf84359acb7a09bacaa3e50232bbdce8da5b3",
+            "telefono": 223,
+            "nombre": "Mateo",
+            "dni": 1234789,
+            "email": "mateo@gmail.com"
+        },
+        "Id": 8,
+        "carrito": [],
+        "precioTotal": 0
+    }
+]

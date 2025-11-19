@@ -1,6 +1,5 @@
 package Gestoras;
 
-import Enums.Marca;
 import Enums.MetodoDePago;
 import Exceptions.*;
 import Models.*;
@@ -28,6 +27,17 @@ public class Taller {
         gestorTickets = new LinkedHashSet();
         gestorItemTaller = new GestoraGenerica<>();
     }
+
+
+    /// getter
+    public GestoraGenerica<Cliente> getGestorClientes() {
+        return gestorClientes;
+    }
+
+    public GestoraGenerica<ItemTaller> getGestorItemTaller() {
+        return gestorItemTaller;
+    }
+
     /// Metodo para actualizar el contador. pendiente---
      /*public void actualizarContadorId() {
         int max = 0;
@@ -41,57 +51,40 @@ public class Taller {
         Ticket.setContadorIds(max + 1);
     }
 */
+
+
+
+
+
     /// Metodos de funcionamiento-----------------------------------------------------------------------------------------
 
     /// Metodo para ingresar un cliente
-    public void agregarCliente(String nombre, String apellido, long dni, long telefono, String email)throws DuplicadoException{
-        gestorClientes.agregar(new Cliente(nombre, apellido, dni, telefono, email));
+    public Cliente agregarCliente(String nombre, String apellido, int dni, int telefono, String email){
+        Cliente c = new Cliente(nombre, apellido, dni, telefono, email);
+        gestorClientes.agregar(c);
+        return c;
     }
 
-    public void eliminarCliente(long dni)throws NoSeEncuentraEnRegistroException{
+    public void eliminarCliente(int dni)throws NoSeEncuentraEnRegistroException{
         Cliente cliente = buscarCliente(dni);
         gestorClientes.eliminar(cliente);
     }
 
-    public Cliente buscarCliente (long dni)throws NoSeEncuentraEnRegistroException{
-        for (Cliente c: gestorClientes.contenedor){
-            if(c.getDni()==dni){
+    public Cliente buscarCliente (int dni){
+        for (Cliente c: gestorClientes.contenedor) {
+            if (c.getDni() == dni) {
                 return c;
             }
-        } throw new NoSeEncuentraEnRegistroException("El cliente no se encuentra en la lista");
+        }
+        return null;
     }
+
 
     public String mostrarClientes (){
         return gestorClientes.listar();
-    }
-    /// Metodo para agregar un ItemTaller
-    public void agregarServicio(String nombre, double precio, int tiempoEstimado, String descripcion) throws DuplicadoException {
-        Servicio servicio = new Servicio(nombre, precio, tiempoEstimado, descripcion);
-        gestorItemTaller.agregar(servicio);
-    }
+        }
 
-    public void agregarRepuesto(String nombre, double precio, int id, int stock, Marca marca, double costo) throws DuplicadoException{
-        Repuesto repuesto = new Repuesto(nombre, precio, id, stock, marca, costo);
-        gestorItemTaller.agregar(repuesto);
-    }
-
-    public ItemTaller buscarItemTaller(String nombre) throws NoSeEncuentraEnRegistroException{
-        for (ItemTaller item : gestorItemTaller.contenedor){
-            if(item.getNombre().equals(nombre)){
-                return item;
-            }
-        } throw new NoSeEncuentraEnRegistroException("No existe ese item en la lista");
-    }
-
-    public void eliminarItemTaller(String nombre)throws NoSeEncuentraEnRegistroException{
-        ItemTaller item = buscarItemTaller(nombre);
-        gestorItemTaller.eliminar(item);
-    }
-
-    public void modificarStockRepuesto(String nombre, int cantidad) throws NoSeEncuentraEnRegistroException {
-        Repuesto repuesto = (Repuesto) buscarItemTaller(nombre);
-        repuesto.setStock(cantidad + repuesto.getStock());
-    }
+    ///
 
     /// Metodo para crear un ticket
 
@@ -119,6 +112,14 @@ public class Taller {
         } return null;
     }
 
+    public boolean existeMecanicoDni (int dni){
+        for (Mecanico m: gestorMecanicos.contenedor){
+            if(m.getDni()==dni){
+                return true;
+            }
+        } return false;
+    }
+
     /// Metodo para iniciar sesion
     public boolean iniciarSesion (String usuario, String contrasenia)throws UsuarioNoEncontradoException{
         String contraseniaHasheada = Seguridad.hashearContrasenia(contrasenia);
@@ -129,7 +130,7 @@ public class Taller {
         } throw new UsuarioNoEncontradoException("El usuario o la contraseña no son correctos");
     }
 
-    public void registrarse (String nombre, String apellido, long dni, long telefono, String email, String usuario, String contrasenia) throws UsuarioYaRegistradoException, DuplicadoException {
+    public void registrarse (String nombre, String apellido, int dni, int telefono, String email, String usuario, String contrasenia) throws UsuarioYaRegistradoException, DuplicadoException {
         Mecanico m = buscarMecanico(usuario);
         if(m==null){
             Mecanico mecanico = new Mecanico(nombre, apellido, dni, telefono, email, usuario, contrasenia);
@@ -156,6 +157,7 @@ public class Taller {
                 total += t.getPrecioTotal();
             }
         }
+
         return total;
     }
 
@@ -182,6 +184,7 @@ public class Taller {
             cargarMecanicos();
             cargarItemTaller();
             cargarTickets();
+            Impresora.crearCarpeta();
         } catch (JSONException e){
             e.printStackTrace();
         } catch (DuplicadoException e){
@@ -230,10 +233,12 @@ public class Taller {
         gestorTickets.clear();
         for(int i = 0; i<arrayTickets.length(); i++){
             this.gestorTickets.add(Ticket.fromJson(arrayTickets.getJSONObject(i)));
-        } if(gestorTickets.isEmpty()){
+        }
+        if(gestorTickets.isEmpty()){
             Ticket.setContadorIds(0);
-        } else {
-            Ticket.setContadorIds(gestorTickets.getLast().getId()+1);
+        }
+        else {
+            Ticket.setContadorIds(gestorTickets.getLast().getId() + 1);
         }
     }
 
@@ -249,8 +254,7 @@ public class Taller {
         return jsonArray;
     }
 
-    public void llamarMetodos(){
-        Impresora.crearCarpeta();
+    public void imprimirClientes(){
         Impresora.imprimirListadoClientes(gestorClientes.contenedor);
     }
 }
