@@ -61,6 +61,9 @@ public class Taller {
         } throw new NoSeEncuentraEnRegistroException("El cliente no se encuentra en la lista");
     }
 
+    public String mostrarClientes (){
+        return gestorClientes.listar();
+    }
     /// Metodo para agregar un ItemTaller
     public void agregarServicio(String nombre, double precio, int tiempoEstimado, String descripcion) throws DuplicadoException {
         Servicio servicio = new Servicio(nombre, precio, tiempoEstimado, descripcion);
