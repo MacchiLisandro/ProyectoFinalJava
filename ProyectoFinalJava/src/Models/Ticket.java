@@ -106,21 +106,11 @@ public class Ticket implements IJson {
         } carrito.remove(itemTaller);
     }
 
-    public void modificarCantidad (ItemTaller itemTaller, int cantidad)throws NoSeEncuentraEnCarritoException{
-        if(!carrito.contains(itemTaller)){
-            throw new NoSeEncuentraEnCarritoException("Ese item no se encuentra en el carrito");
-        }
-        for (ItemTaller i : carrito){
-            if(i.equals(itemTaller)){
-                i.setCantidad(cantidad);
-            }
-        }
-    }
 
     public void calculaPrecio (){
         double suma = 0;
         for (ItemTaller i : carrito){
-            suma += i.getPrecio() * i.getCantidad();
+            suma += i.getPrecio();
         } suma += (suma * metodoDePago.getRecargo());
         this.precioTotal = suma;
     }
