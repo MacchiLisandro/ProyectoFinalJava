@@ -15,6 +15,6 @@ public class Main {
         MenuPrincipal menu = new MenuPrincipal(taller);
 
         menu.mostrarMenu();
-        3
+
     }
 }

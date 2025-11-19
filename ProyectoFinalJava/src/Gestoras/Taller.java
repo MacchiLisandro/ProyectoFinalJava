@@ -1,5 +1,6 @@
 package Gestoras;
 
+import Enums.Marca;
 import Enums.MetodoDePago;
 import Exceptions.*;
 import Models.*;
@@ -160,6 +161,37 @@ public class Taller {
 
         return total;
     }
+
+
+    /// Metodo para agregar un ItemTaller
+    public void agregarServicio(String nombre, double precio, int tiempoEstimado, String descripcion) throws DuplicadoException {
+        Servicio servicio = new Servicio(nombre, precio, tiempoEstimado, descripcion);
+        gestorItemTaller.agregar(servicio);
+    }
+
+    public void agregarRepuesto(String nombre, double precio, int id, int stock, Marca marca, double costo) throws DuplicadoException{
+        Repuesto repuesto = new Repuesto(nombre, precio, id, stock, marca, costo);
+        gestorItemTaller.agregar(repuesto);
+    }
+
+    public ItemTaller buscarItemTaller(String nombre) throws NoSeEncuentraEnRegistroException{
+        for (ItemTaller item : gestorItemTaller.contenedor){
+            if(item.getNombre().equals(nombre)){
+                return item;
+            }
+        } throw new NoSeEncuentraEnRegistroException("No existe ese item en la lista");
+    }
+
+    public void eliminarItemTaller(String nombre)throws NoSeEncuentraEnRegistroException{
+        ItemTaller item = buscarItemTaller(nombre);
+        gestorItemTaller.eliminar(item);
+    }
+
+    public void modificarStockRepuesto(String nombre, int cantidad) throws NoSeEncuentraEnRegistroException {
+        Repuesto repuesto = (Repuesto) buscarItemTaller(nombre);
+        repuesto.setStock(cantidad + repuesto.getStock());
+    }
+    
 
     /// Metodo para guardar todas las collection en JSon
     public void guardarTodo(){
