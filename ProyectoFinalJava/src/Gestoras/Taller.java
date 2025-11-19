@@ -1,5 +1,6 @@
 package Gestoras;
 
+import Enums.MetodoDePago;
 import Exceptions.DuplicadoException;
 import Exceptions.NoSeEncuentraEnRegistroException;
 import Models.*;
@@ -27,9 +28,18 @@ public class Taller {
         gestorItemTaller = new GestoraGenerica<>();
     }
     /// Metodo para actualizar el contador. pendiente---
-    public void actualizarContadorId (){
+    /*public void actualizarContadorId() {
+        int max = 0;
 
+        for (Ticket t : gestorTickets) {
+            if (t.getId() > max) {
+                max = t.getId();
+            }
+        }
+
+        Ticket.setContadorIds(max + 1);
     }
+*/
     /// Metodos de funcionamiento-----------------------------------------------------------------------------------------
 
     /// Metodo para ingresar un cliente
@@ -51,10 +61,21 @@ public class Taller {
     }
 
     /// Metodo para crear un ticket
-    public void crearTicket (){
+    /*
+    public Ticket crearTicket(Cliente cliente, MetodoDePago metodo) {
+        if (mecanicoLogueado == null) {
+            throw new RuntimeException("No hay mecánico logueado.");
+        }
 
+        /// aca se asigna el mecanico logueado
+        Ticket ticket = new Ticket(cliente, mecanicoLogueado, metodo);
+
+        /// se agrega al registro de ticket
+        gestorTickets.add(ticket);
+
+        return ticket;
     }
-
+*/
     /// Metodo que calcula ganancias mensuales
     public double calcularGananciaMensual(int mes, int anio) {
         double total = 0;
@@ -142,7 +163,10 @@ public class Taller {
         for(int i = 0; i<arrayTickets.length(); i++){
             this.gestorTickets.add(Ticket.fromJson(arrayTickets.getJSONObject(i)));
         }
-        Ticket.setContadorIds(gestorTickets.getLast().getId()+1);
+        Ticket.setContadorIds(gestorTickets.getLast().getId()+1);  ///Si se rompe cambiar a la linea de abajo
+
+
+        ///actualizarContadorId();  Por si se rompe.
     }
 
     private JSONArray ticketToJsonArray () throws JSONException {
