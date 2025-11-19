@@ -1,9 +1,7 @@
 package Models;
 
 import Enums.Marca;
-import Exceptions.DuplicadoException;
-import Exceptions.UsuarioNoEncontradoException;
-import Exceptions.UsuarioYaRegistradoException;
+import Exceptions.*;
 import Gestoras.GestoraGenerica;
 import Gestoras.Taller;
 import Enums.MetodoDePago;
@@ -219,14 +217,17 @@ public class MenuPrincipal {
             }
         }while(opcion!=3);
     }
-/*
+
     private void menuItemTaller(){
         int opcion;
 
         do{
             System.out.println("\n===== MENÚ ITEMTALLER =====");
             System.out.println("1) Cargar nuevo repuesto");
-            System.out.println("1) Cargar nuevo servicio");
+            System.out.println("2) Cargar nuevo servicio");
+            System.out.println("3) Eliminar repuesto o servicio");
+            System.out.println("4) Modificar stock producto");
+            System.out.println("5) Volver");
             System.out.println("=============================");
             System.out.print("Elija una opción: ");
 
@@ -241,20 +242,32 @@ public class MenuPrincipal {
 
             switch(opcion){
                 case 1:
+                    cargarNuevoRepuesto();
+                    break;
+                case 2:
+                    cargarNuevoServicio();
+                    break;
+                case 3:
+                    bajaItemTaller();
+                    break;
+                case 4:
+                    cambiarStock();
+                    break;
+                case 5:
                     break;
                 default:
                     System.out.println("Opción inválida.");
                     break;
             }
-        }while();
+        }while(opcion != 5);
     }
 
 
     private void cargarNuevoRepuesto(){
         String nombre;
         double precio;
-        int id;
         int stock;
+        String marcaIngresada;
         Marca marca;
         double costo;
 
@@ -266,8 +279,28 @@ public class MenuPrincipal {
 
         sc.nextLine();
 
-        System.out.println("");
+        System.out.println("Cantidad de stock: ");
+        stock = sc.nextInt();
+
+        sc.nextLine();
+
+        System.out.println("Marca: ");
+        marcaIngresada = sc.nextLine();
+        marca = Marca.valueOf(marcaIngresada);
+
+        System.out.println("Costo: ");
+        costo = sc.nextDouble();
+
+        sc.nextLine();
+
+        try {
+            taller.agregarRepuesto(nombre, precio, stock, marca, costo);
+        }
+        catch(DuplicadoException e){
+            System.out.println(e.getMessage());
+        }
     }
+
 
     private void cargarNuevoServicio(){
         String nombre;
@@ -289,10 +322,80 @@ public class MenuPrincipal {
         sc.nextLine();
 
         System.out.println("Descripcion: ");
-        nombre = sc.nextLine();
+        descripcion = sc.nextLine();
 
+        try {
+            taller.agregarServicio(nombre, precio, tiempoEstimado, descripcion);
+        }
+        catch(DuplicadoException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
-    }*/
+    private void bajaItemTaller(){
+        System.out.println("Ingrese el nombre del producto o servicio que desea eliminar: ");
+        String nombre = sc.nextLine();
+
+        try {
+            taller.eliminarItemTaller(nombre);
+        } catch (NoSeEncuentraEnRegistroException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void cambiarStock(){
+        String nombreProducto;
+        int cantidad;
+        int opcion;
+
+        System.out.println("Ingrese el nombre del producto: ");
+        nombreProducto = sc.nextLine();
+
+        System.out.println("Ingrese cantidad de stock a sumar o disminuir: ");
+        cantidad = sc.nextInt();
+
+        sc.nextLine();
+
+        do{
+            System.out.println("=============================");
+            System.out.println("1) Agregar stock");
+            System.out.println("2) Disminuir stock");
+            System.out.println("3) Volver");
+            System.out.println("=============================");
+            System.out.print("Elija una opción: ");
+
+            try{
+                opcion = sc.nextInt();
+            }
+            catch(InputMismatchException e){
+                opcion = 0;
+            }
+
+            sc.nextLine();
+
+            switch(opcion){
+                case 1:
+                    try {
+                        taller.modificarStockRepuesto(nombreProducto,cantidad);
+                    } catch (NoSeEncuentraEnRegistroException | StockInsuficienteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 2:
+                    try {
+                        taller.modificarStockRepuesto(nombreProducto,-cantidad);
+                    } catch (NoSeEncuentraEnRegistroException | StockInsuficienteException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 3:
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
+                    break;
+            }
+        }while(opcion!=3);
+    }
 
     ///  MANEJO DE TICKETS //////////////////////////////////////////////////////////////////////////////
 
