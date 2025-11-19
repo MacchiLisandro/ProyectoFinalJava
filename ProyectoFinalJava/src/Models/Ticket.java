@@ -105,6 +105,7 @@ public class Ticket implements IJson {
             throw new NoSeEncuentraEnCarritoException("Ese item no se encuentra en el carrito");
         } carrito.remove(itemTaller);
     }
+
     public void modificarCantidad (ItemTaller itemTaller, int cantidad)throws NoSeEncuentraEnCarritoException{
         if(!carrito.contains(itemTaller)){
             throw new NoSeEncuentraEnCarritoException("Ese item no se encuentra en el carrito");
@@ -123,6 +124,8 @@ public class Ticket implements IJson {
         } suma += (suma * metodoDePago.getRecargo());
         this.precioTotal = suma;
     }
+
+
   /// To Json   /// Agregamos el "tipo" para saber qué clase es al reconstruir, lo que habiamos comentado en Repuesto Y Servicio
     @Override
     public JSONObject toJson() throws JSONException {

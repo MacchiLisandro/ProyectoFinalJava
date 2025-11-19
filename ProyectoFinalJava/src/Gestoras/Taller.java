@@ -1,7 +1,6 @@
 package Gestoras;
 
-import Exceptions.DuplicadoException;
-import Exceptions.NoSeEncuentraEnRegistroException;
+import Exceptions.*;
 import Models.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 public class Taller {
+    private Mecanico mecanicoLogeado;
     private GestoraGenerica<Cliente> gestorClientes;
     private GestoraGenerica<Mecanico> gestorMecanicos;
     private GestoraGenerica<ItemTaller> gestorItemTaller;
@@ -50,10 +50,43 @@ public class Taller {
         } throw new NoSeEncuentraEnRegistroException("El cliente no se encuentra en la lista");
     }
 
+    ///
+
     /// Metodo para crear un ticket
     public void crearTicket (){
 
     }
+
+    /// Metodo buscar mecanico
+    public Mecanico buscarMecanico (String usuario){
+        for (Mecanico m: gestorMecanicos.contenedor){
+            if(m.getUsuario().equals(usuario)){
+                return m;
+            }
+        } return null;
+    }
+
+    /// Metodo para iniciar sesion
+    public boolean iniciarSesion (String usuario, String contrasenia)throws UsuarioNoEncontradoException{
+        String contraseniaHasheada = Seguridad.hashearContrasenia(contrasenia);
+        Mecanico m = buscarMecanico(usuario);
+        if(m!=null && m.getContrasenia().equals(contraseniaHasheada)){
+            this.mecanicoLogeado = m;
+            return true;
+        } throw new UsuarioNoEncontradoException("El usuario o la contraseña no son correctos");
+    }
+
+    public void registrarse (String nombre, String apellido, int dni, int telefono, String email, String usuario, String contrasenia)throws UsuarioYaRegistradoException{
+        Mecanico m = buscarMecanico(usuario);
+        if(m==null){
+            Mecanico mecanico = new Mecanico(nombre, apellido, dni, telefono, email, usuario, contrasenia);
+            this.mecanicoLogeado = mecanico;
+        } else {
+            throw new UsuarioYaRegistradoException("El usuario ya esta registrado");
+        }
+    }
+
+
 
     /// Metodo que calcula ganancias mensuales
     public double calcularGananciaMensual(int mes, int anio) {
