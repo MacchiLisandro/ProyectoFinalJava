@@ -3,11 +3,14 @@ package Models;
 import Exceptions.DuplicadoException;
 import Exceptions.UsuarioNoEncontradoException;
 import Exceptions.UsuarioYaRegistradoException;
+import Gestoras.GestoraGenerica;
 import Gestoras.Taller;
 import Enums.MetodoDePago;
 import Models.Cliente;
 import Models.Ticket;
 
+import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -20,9 +23,9 @@ public class MenuPrincipal {
         this.taller = taller;
     }
 
-    // =======================================================
-    //             Metodo Inicio de Menu
-    // =======================================================
+
+    ///  MENU PRINCIPAL ////////////////////////////////////////////////////////////////////////////
+
 
     public void mostrarMenu() {
         int opcion;
@@ -35,7 +38,13 @@ public class MenuPrincipal {
             System.out.println("==========================");
             System.out.print("Elija una opción: ");
 
-            opcion = sc.nextInt();
+            try{
+                opcion = sc.nextInt();
+            }
+            catch(InputMismatchException e){
+                opcion = 0;
+            }
+
             sc.nextLine();
 
             switch (opcion) {
@@ -45,7 +54,16 @@ public class MenuPrincipal {
                     break;
 
                 case 2:
-                    registrarse();
+                    System.out.print("DNI: ");
+                    int dni = sc.nextInt();
+                    sc.nextLine();
+
+                    if(taller.existeMecanicoDni(dni)){
+                        System.out.println("El dni ingresado ya esta registrado");
+                    }
+                    else{
+                        registrarse(dni);
+                    }
                     break;
 
                 case 3:
@@ -60,9 +78,7 @@ public class MenuPrincipal {
         } while (opcion != 3);
     }
 
-    // =======================================================
-    //                    Iniciar Sesion
-    // =======================================================
+    ///  INICIAR SESION MECANICO ///////////////////////////////////////////////////////////////////////////
 
     private void iniciarSesion() {
         System.out.println("\n--- INICIAR SESIÓN ---");
@@ -84,11 +100,9 @@ public class MenuPrincipal {
         }
     }
 
-    // =======================================================
-    //                     Registrarse
-    // =======================================================
+    ///  REGISTRAR MECANICO /////////////////////////////////////////////////////////////////////////////
 
-    private void registrarse() {
+    private void registrarse(int dni) {
         System.out.println("\n--- REGISTRARSE ---");
 
         System.out.print("Nombre: ");
@@ -96,10 +110,6 @@ public class MenuPrincipal {
 
         System.out.print("Apellido: ");
         String apellido = sc.nextLine();
-
-        System.out.print("DNI: ");
-        int dni = sc.nextInt();
-        sc.nextLine();
 
         System.out.print("Teléfono: ");
         int telefono = sc.nextInt();
@@ -124,9 +134,7 @@ public class MenuPrincipal {
         }
     }
 
-    // =======================================================
-    //                  Menu del Mecanico
-    // =======================================================
+    /// MENU TALLER //////////////////////////////////////////////////////////////////////////////////////////
 
     private void menuTaller() {
         int opcion;
@@ -136,7 +144,8 @@ public class MenuPrincipal {
             System.out.println("1) Crear ticket");
             System.out.println("2) Ver clientes");
             System.out.println("3) Calcular ganancia mensual");
-            System.out.println("4) Cerrar sesión");
+            System.out.println("4) Imprimir lista de clientes");
+            System.out.println("5) Cerrar sesión");
             System.out.println("==========================");
             System.out.print("Elija una opción: ");
 
@@ -155,8 +164,10 @@ public class MenuPrincipal {
                 case 3:
                     calcularGanancias();
                     break;
-
                 case 4:
+                    taller.imprimirClientes();
+                case 5:
+                    taller.guardarTodo();
                     System.out.println("Sesión cerrada.");
                     return; // vuelve al menú principal
 
@@ -168,9 +179,7 @@ public class MenuPrincipal {
         } while (true);
     }
 
-    // =======================================================
-    //                Menu taller
-    // =======================================================
+    ///  MANEJO DE TICKETS //////////////////////////////////////////////////////////////////////////////
 
     private void crearTicket() {
         try {
@@ -179,6 +188,10 @@ public class MenuPrincipal {
             sc.nextLine();
 
             Cliente cliente = taller.buscarCliente(dni);
+
+            if(cliente==null){ //si no existe, lo crea
+                cliente = cargarClienteNuevo(dni);
+            }
 
             System.out.println("Método de pago:");
             System.out.println("1) Efectivo");
@@ -199,18 +212,77 @@ public class MenuPrincipal {
         }
     }
 
+    private void cargarEnCarrito(){
+        taller.getGestorItemTaller().listar();
+        int opcion = 0;
+
+        do{
+            System.out.println("Ingrese codigo de prodcuto/servicio: ");
+            opcion = sc.nextInt();
+
+        }while(opcion!=0);
+    }
+
+    // MANEJO DE CLIENTES ////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * pide datos al usuario para cargar un cliente nuevo
+     * @return
+     * @throws DuplicadoException
+     */
+    private Cliente cargarClienteNuevo(int dni) { //no vuelve a pedir dni, usa el del ticket si no existe
+        String nombre;
+        String apellido;
+        int telefono;
+        String email;
+
+        System.out.println("Nombre: ");
+        nombre = sc.nextLine();
+
+        System.out.println("Apellido: ");
+        apellido = sc.nextLine();
+
+        System.out.println("Telefono: ");
+        telefono = sc.nextInt();
+
+        sc.nextLine(); //para limpiar buffer
+
+        System.out.println("Email: ");
+        email = sc.nextLine();
+
+        return taller.agregarCliente(nombre, apellido, dni, telefono, email);
+    }
+
     private void mostrarClientes() {
         System.out.println("\n--- LISTADO DE CLIENTES ---");
         System.out.println(taller.mostrarClientes());
 
     }
 
-    private void calcularGanancias() {
-        System.out.print("Mes (1-12): ");
-        int mes = sc.nextInt();
+    /// OTROS METODOS ////////////////////////////////////////////////////////////////////////////////////////
 
-        System.out.print("Año: ");
-        int anio = sc.nextInt();
+    private void calcularGanancias() {
+        int mes;
+        int anio;
+
+        do{
+            System.out.print("Mes (1-12): ");
+            mes = sc.nextInt();
+            if(mes<1 || mes>12){
+                System.out.println("El mes ingresado no existe");
+            }
+        }while(mes<1 || mes>12);
+
+        sc.nextLine();
+
+        do{
+            System.out.print("Año: ");
+            anio = sc.nextInt();
+            if(anio<2025 || anio > LocalDate.now().getYear()){
+                System.out.println("Año invalido");
+            }
+        }while(anio<2025 || anio > LocalDate.now().getYear()); //2025 inicio de actividades
+
         sc.nextLine();
 
         double total = taller.calcularGananciaMensual(mes, anio);

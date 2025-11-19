@@ -34,7 +34,9 @@ public class Taller {
         return gestorClientes;
     }
 
-
+    public GestoraGenerica<ItemTaller> getGestorItemTaller() {
+        return gestorItemTaller;
+    }
 
     /// Metodo para actualizar el contador. pendiente---
      /*public void actualizarContadorId() {
@@ -57,8 +59,10 @@ public class Taller {
     /// Metodos de funcionamiento-----------------------------------------------------------------------------------------
 
     /// Metodo para ingresar un cliente
-    public void agregarCliente(String nombre, String apellido, int dni, int telefono, String email)throws DuplicadoException{
-        gestorClientes.agregar(new Cliente(nombre, apellido, dni, telefono, email));
+    public Cliente agregarCliente(String nombre, String apellido, int dni, int telefono, String email){
+        Cliente c = new Cliente(nombre, apellido, dni, telefono, email);
+        gestorClientes.agregar(c);
+        return c;
     }
 
     public void eliminarCliente(int dni)throws NoSeEncuentraEnRegistroException{
@@ -66,12 +70,13 @@ public class Taller {
         gestorClientes.eliminar(cliente);
     }
 
-    public Cliente buscarCliente (int dni)throws NoSeEncuentraEnRegistroException{
-        for (Cliente c: gestorClientes.contenedor){
-            if(c.getDni()==dni){
+    public Cliente buscarCliente (int dni){
+        for (Cliente c: gestorClientes.contenedor) {
+            if (c.getDni() == dni) {
                 return c;
             }
-        } throw new NoSeEncuentraEnRegistroException("El cliente no se encuentra en la lista");
+        }
+        return null;
     }
 
 
@@ -105,6 +110,14 @@ public class Taller {
                 return m;
             }
         } return null;
+    }
+
+    public boolean existeMecanicoDni (int dni){
+        for (Mecanico m: gestorMecanicos.contenedor){
+            if(m.getDni()==dni){
+                return true;
+            }
+        } return false;
     }
 
     /// Metodo para iniciar sesion
@@ -171,6 +184,7 @@ public class Taller {
             cargarMecanicos();
             cargarItemTaller();
             cargarTickets();
+            Impresora.crearCarpeta();
         } catch (JSONException e){
             e.printStackTrace();
         } catch (DuplicadoException e){
@@ -240,8 +254,7 @@ public class Taller {
         return jsonArray;
     }
 
-    public void llamarMetodos(){
-        Impresora.crearCarpeta();
+    public void imprimirClientes(){
         Impresora.imprimirListadoClientes(gestorClientes.contenedor);
     }
 }
