@@ -61,8 +61,8 @@ public class MenuPrincipal {
         String contrasenia = sc.nextLine();
 
         try {
-            boolean ok = taller.iniciarSesion(usuario, contrasenia);
-            if (ok) {
+            boolean checkeado = taller.iniciarSesion(usuario, contrasenia);
+            if (checkeado) {
                 System.out.println("Sesión iniciada correctamente.");
             }
         } catch (UsuarioNoEncontradoException e) {
