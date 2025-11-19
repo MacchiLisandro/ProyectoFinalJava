@@ -142,14 +142,19 @@ public class MenuPrincipal {
         do {
             System.out.println("\n===== MENÚ TALLER =====");
             System.out.println("1) Crear ticket");
-            System.out.println("2) Ver clientes");
+            System.out.println("2) Ir a menú clientes");
             System.out.println("3) Calcular ganancia mensual");
-            System.out.println("4) Imprimir lista de clientes");
-            System.out.println("5) Cerrar sesión");
+            System.out.println("4) Cerrar sesión");
             System.out.println("==========================");
             System.out.print("Elija una opción: ");
 
-            opcion = sc.nextInt();
+            try{
+                opcion = sc.nextInt();
+            }
+            catch(InputMismatchException e){
+                opcion = 0;
+            }
+
             sc.nextLine();
 
             switch (opcion) {
@@ -158,26 +163,86 @@ public class MenuPrincipal {
                     break;
 
                 case 2:
-                    mostrarClientes();
+                    menuClientes();
                     break;
 
                 case 3:
                     calcularGanancias();
                     break;
+
                 case 4:
-                    taller.imprimirClientes();
-                case 5:
                     taller.guardarTodo();
                     System.out.println("Sesión cerrada.");
-                    return; // vuelve al menú principal
+                    break;
 
                 default:
                     System.out.println("Opción inválida.");
                     break;
             }
 
-        } while (true);
+        } while (opcion!=4);
     }
+
+    private void menuClientes(){
+        int opcion;
+
+        do{
+            System.out.println("\n===== MENÚ CLIENTES =====");
+            System.out.println("1) Ver clientes");
+            System.out.println("2) Imprimir lista de clientes");
+            System.out.println("3) Volver");
+            System.out.println("===========================");
+            System.out.print("Elija una opción: ");
+
+            try{
+                opcion = sc.nextInt();
+            }
+            catch(InputMismatchException e){
+                opcion = 0;
+            }
+
+            sc.nextLine();
+
+            switch(opcion){
+                case 1:
+                    mostrarClientes();
+                    break;
+                case 2:
+                    taller.imprimirClientes();
+                    break;
+                case 3:
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
+                    break;
+            }
+        }while(opcion!=3);
+    }
+/*
+    private void menuItemTaller(){
+        int opcion;
+
+        do{
+            System.out.println("\n===== MENÚ ITEMTALLER =====");
+            System.out.println();
+            System.out.println("=============================");
+            System.out.print("Elija una opción: ");
+
+            try{
+                opcion = sc.nextInt();
+            }
+            catch(InputMismatchException e){
+                opcion = 0;
+            }
+
+            sc.nextLine();
+
+            switch(opcion){
+                case 1:
+                    break;
+            }
+        }while();
+    }*/
 
     ///  MANEJO DE TICKETS //////////////////////////////////////////////////////////////////////////////
 
@@ -228,7 +293,6 @@ public class MenuPrincipal {
     /**
      * pide datos al usuario para cargar un cliente nuevo
      * @return
-     * @throws DuplicadoException
      */
     private Cliente cargarClienteNuevo(int dni) { //no vuelve a pedir dni, usa el del ticket si no existe
         String nombre;
