@@ -216,7 +216,7 @@ public class Taller {
         } catch (JSONException e){
             e.printStackTrace();
         }
-
+        this.mecanicoLogeado = null;
     }
 
     public void cargarTodo(){
