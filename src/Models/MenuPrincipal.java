@@ -136,8 +136,7 @@ public class MenuPrincipal {
     /// MENU TALLER //////////////////////////////////////////////////////////////////////////////////////////
 
     private void menuTaller() {
-        int opcion;
-
+        int opcion = 0;
         do {
             System.out.println("\n===== MENÚ TALLER =====");
             System.out.println("1) Crear ticket");
@@ -148,7 +147,11 @@ public class MenuPrincipal {
             System.out.println("==========================");
             System.out.print("Elija una opción: ");
 
-            opcion = sc.nextInt();
+            try{
+                opcion = sc.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("Ingrese un numero");
+            }
             sc.nextLine();
 
             switch (opcion) {
@@ -174,7 +177,6 @@ public class MenuPrincipal {
                     System.out.println("Opción inválida.");
                     break;
             }
-
         } while (true);
     }
 
@@ -193,8 +195,10 @@ public class MenuPrincipal {
 
             try{
                 opcion = sc.nextInt();
+                sc.nextLine();
             }
             catch(InputMismatchException e){
+                System.out.println("Ingrese un numero");
                 opcion = 0;
             }
 
@@ -235,6 +239,7 @@ public class MenuPrincipal {
                 opcion = sc.nextInt();
             }
             catch(InputMismatchException e){
+                System.out.println("Dato incorrecto");
                 opcion = 0;
             }
 
@@ -407,7 +412,7 @@ public class MenuPrincipal {
 
             Cliente cliente = taller.buscarCliente(dni);
 
-            if(cliente==null){ //si no existe, lo crea
+            if(cliente==null){
                 cliente = cargarClienteNuevo(dni);
             }
 
@@ -416,18 +421,38 @@ public class MenuPrincipal {
             System.out.println("2) Débito");
             System.out.println("3) Crédito");
             System.out.print("Opción: ");
-            int op = sc.nextInt();
-            sc.nextLine();
+            MetodoDePago metodo = MetodoDePago.EFECTIVO;
+            int op = 0;
+            do {
+                try {
+                    op = sc.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Ingrese un numero");
+                }
+                switch(op){
+                    case 1:
+                        metodo = MetodoDePago.EFECTIVO;
+                        break;
+                    case 2:
+                        metodo = MetodoDePago.TARJETA_DEBITO;
+                        break;
+                    case 3:
+                        metodo = MetodoDePago.TRANSFERENCIA;
+                        break;
+                    default:
+                        System.out.println("Opcion incorrecta.");
+                }
 
-            MetodoDePago metodo = MetodoDePago.values()[op - 1];
+            } while (op!=1 && op!=2 && op!=3);
 
             Ticket nuevo = taller.crearTicket(cliente, metodo);
             cargarEnCarrito(nuevo);
+            nuevo.calculaPrecio();
             Impresora.imprimirTicket(nuevo);
             System.out.println("Ticket creado. ID: " + nuevo.getId());
 
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Ingrese un numero");
         }
     }
 
@@ -441,21 +466,37 @@ public class MenuPrincipal {
             System.out.println("1) Agregar item al carrito");
             System.out.println("2) Eliminar item del carrito");
             System.out.println("3) Listar carrito");
-            opcion = sc.nextInt();
+            System.out.println("0) Salir al menu anterior");
+            try{
+                opcion = sc.nextInt();
+            } catch(InputMismatchException e){
+                System.out.println("Ingrese un numero.");
+            }
             sc.nextLine();
             switch(opcion){
                 case 1:
                     System.out.println("Ingrese nombre del item");
                     System.out.println(taller.getGestorItemTaller().listar());
                     String nombre = sc.nextLine();
-                    sc.nextLine();
-                    ItemTaller item = taller.buscarItemTaller(nombre);
+                    ItemTaller item = null;
+                    try{
+                        item = taller.buscarItemTaller(nombre);
+                    } catch (NoSeEncuentraEnRegistroException e){
+                        System.out.println(e.getMessage());
+                    }
+
                     nuevo.agregarCarrito(item);
                     break;
                 case 2:
                     System.out.println("Ingrese nombre del item a eliminar");
                     nombre = sc.nextLine();
-                    item = taller.buscarItemTaller(nombre);
+                    item = null;
+                    try{
+                        item = taller.buscarItemTaller(nombre);
+
+                    } catch (NoSeEncuentraEnRegistroException e) {
+                        System.out.println(e.getMessage());
+                    }
                     nuevo.eliminarCarrito(item);
                     break;
                 case 3:
@@ -496,8 +537,68 @@ public class MenuPrincipal {
         System.out.println("Email: ");
         email = sc.nextLine();
 
-        return taller.agregarCliente(nombre, apellido, dni, telefono, email);
+        Cliente cliente = taller.agregarCliente(nombre, apellido, dni, telefono, email);
+
+        cargarAutoEnCliente(cliente);
+
+        return cliente;
     }
+
+    private void cargarAutoEnCliente(Cliente cliente){
+        Scanner sc = new Scanner(System.in);
+        int op = 0;
+        String patente;
+        Marca marca = Marca.FIAT;
+        String modelo;
+
+        System.out.println("Ingresar patente: ");
+        patente = sc.nextLine();
+
+        do {
+            System.out.println("Seleccione marca:");
+            System.out.println("1) FORD");
+            System.out.println("2) VOLKSWAGEN");
+            System.out.println("3) CHEVROLET");
+            System.out.println("4) FIAT");
+            System.out.println("5) HONDA");
+            System.out.println("6) CITROEN");
+            System.out.println("7) PEUGEOT");
+            System.out.println("8) MERCEDES_BENZ");
+            System.out.println("9) BMW");
+            System.out.println("10) ALFA_ROMEO");
+            System.out.println("11) RENAULT");
+
+            try {
+                System.out.print("Opción: ");
+                op = sc.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Ingrese un número.");
+            } sc.nextLine();
+
+
+            switch (op) {
+                case 1: marca = Marca.FORD; break;
+                case 2: marca = Marca.VOLKSWAGEN; break;
+                case 3: marca = Marca.CHEVROLET; break;
+                case 4: marca = Marca.FIAT; break;
+                case 5: marca = Marca.HONDA; break;
+                case 6: marca = Marca.CITROEN; break;
+                case 7: marca = Marca.PEUGEOT; break;
+                case 8: marca = Marca.MERCEDES_BENZ; break;
+                case 9: marca = Marca.BMW; break;
+                case 10: marca = Marca.ALFA_ROMEO; break;
+                case 11: marca = Marca.RENAULT; break;
+                default:
+                    System.out.println("Opción incorrecta.");
+            }
+
+        } while (op < 1 || op > 11);
+        System.out.println("Ingrese el modelo:");
+        modelo = sc.nextLine();
+        Vehiculo vehiculo = new Vehiculo(patente, marca, modelo);
+        cliente.agregarAutoCliente(vehiculo);
+    }
+
 
     private void mostrarClientes() {
         System.out.println("\n--- LISTADO DE CLIENTES ---");
