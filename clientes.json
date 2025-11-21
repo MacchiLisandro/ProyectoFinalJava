@@ -1,0 +1,29 @@
+[
+    {
+        "deuda": 0,
+        "apellido": "bonucci",
+        "telefono": 456,
+        "nombre": "matias",
+        "dni": 789,
+        "email": "",
+        "vehiculos": []
+    },
+    {
+        "deuda": 0,
+        "apellido": "macchi",
+        "telefono": 456,
+        "nombre": "petra",
+        "dni": 456,
+        "email": "456",
+        "vehiculos": []
+    },
+    {
+        "deuda": 0,
+        "apellido": "cgh",
+        "telefono": 123,
+        "nombre": "asdfg",
+        "dni": 123,
+        "email": "",
+        "vehiculos": []
+    }
+]
