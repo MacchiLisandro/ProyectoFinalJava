@@ -1,1 +1,77 @@
-[]
+[
+    {
+        "descripcion": "Cambio de aceite y filtro de aceite.",
+        "precio": 50,
+        "tipo": "Servicio",
+        "tiempoEstimado": 45,
+        "nombre": "Cambio de aceite"
+    },
+    {
+        "descripcion": "Alineación y balanceo de las ruedas.",
+        "precio": 80,
+        "tipo": "Servicio",
+        "tiempoEstimado": 60,
+        "nombre": "Alineación de ruedas"
+    },
+    {
+        "descripcion": "Reemplazo de pastillas de freno y revisión de discos.",
+        "precio": 120,
+        "tipo": "Servicio",
+        "tiempoEstimado": 120,
+        "nombre": "Reemplazo de pastillas de freno"
+    },
+    {
+        "marca": "VOLKSWAGEN",
+        "precio": 50,
+        "tipo": "Repuesto",
+        "costo": 25,
+        "stock": 30,
+        "nombre": "Pastillas de freno"
+    },
+    {
+        "descripcion": "Revisión de motor, frenos, suspensión, etc.",
+        "precio": 100,
+        "tipo": "Servicio",
+        "tiempoEstimado": 90,
+        "nombre": "Revisión general"
+    },
+    {
+        "marca": "FORD",
+        "precio": 30,
+        "tipo": "Repuesto",
+        "costo": 15,
+        "stock": 50,
+        "nombre": "Filtro de aire"
+    },
+    {
+        "marca": "CHEVROLET",
+        "precio": 70,
+        "tipo": "Repuesto",
+        "costo": 40,
+        "stock": 40,
+        "nombre": "Aceite de motor 5W-30"
+    },
+    {
+        "marca": "HONDA",
+        "precio": 25,
+        "tipo": "Repuesto",
+        "costo": 10,
+        "stock": 60,
+        "nombre": "Bujías"
+    },
+    {
+        "marca": "FIAT",
+        "precio": 100,
+        "tipo": "Repuesto",
+        "costo": 70,
+        "stock": 20,
+        "nombre": "Amortiguadores"
+    },
+    {
+        "descripcion": "Reparación de suspensión y amortiguadores.",
+        "precio": 150,
+        "tipo": "Servicio",
+        "tiempoEstimado": 180,
+        "nombre": "Reparación de suspensión"
+    }
+]
