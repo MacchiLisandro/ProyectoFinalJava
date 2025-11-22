@@ -428,7 +428,7 @@ public class MenuPrincipal {
                     op = sc.nextInt();
                 } catch (InputMismatchException e) {
                     System.out.println("Ingrese un numero");
-                }
+                } sc.nextLine();
                 switch(op){
                     case 1:
                         metodo = MetodoDePago.EFECTIVO;
