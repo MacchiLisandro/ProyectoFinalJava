@@ -179,13 +179,17 @@ public class Taller {
         gestorItemTaller.agregar(repuesto);
     }
 
-    public ItemTaller buscarItemTaller(String nombre) throws NoSeEncuentraEnRegistroException{
-        for (ItemTaller item : gestorItemTaller.contenedor){
-            if(item.getNombre().equals(nombre)){
+  public ItemTaller buscarItemTaller(String nombre) throws NoSeEncuentraEnRegistroException {
+        String nombreNormalizado = nombre.trim().toLowerCase();
+        for (ItemTaller item : gestorItemTaller.contenedor) {
+            String nombreItemNormalizado = item.getNombre().trim().toLowerCase();
+            if (nombreItemNormalizado.equals(nombreNormalizado)) {
                 return item;
             }
-        } throw new NoSeEncuentraEnRegistroException("No existe ese item en la lista");
+        }
+        throw new NoSeEncuentraEnRegistroException("Item no encontrado: " + nombre);
     }
+
 
     public void eliminarItemTaller(String nombre)throws NoSeEncuentraEnRegistroException{
         ItemTaller item = buscarItemTaller(nombre);
